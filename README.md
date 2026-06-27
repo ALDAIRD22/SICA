@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEDE COMAS - ANÁLISIS DE NOTAS</title>
+    <title>SICA - ALDAIR RIVERA</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -44,13 +43,13 @@
 </head>
 <body class="text-slate-200 min-h-screen antialiased custom-scroll flex flex-col">
 
-    <!-- SPLASH SCREEN MEJORADO: EXPOSITOR DE PROMEDIOS GENERALES GIGANTES -->
+    <!-- SPLASH SCREEN CON FIRMA ALDAIR RIVERA Y PROMEDIOS GENERALES GIGANTES -->
     <div id="welcome-overlay" class="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-1000 opacity-100 p-6">
         <div class="text-center space-y-6 max-w-2xl w-full">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-[0_0_40px_rgba(14,165,233,0.3)]">
-                <span class="text-3xl text-white font-black" translate="no">SC</span>
+                <span class="text-3xl text-white font-black" translate="no">AR3</span>
             </div>
-            <h2 class="text-xl font-bold text-slate-400 tracking-widest uppercase">SEDE COMAS • REPORTE EN VIVO</h2>
+            <h2 class="text-xl font-bold text-slate-400 tracking-widest uppercase">ALDAIR RIVERA • REPORTES EN VIVO</h2>
             
             <!-- Bloque de visualización masiva de promedios -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8">
@@ -64,7 +63,7 @@
                 </div>
             </div>
             
-            <p class="text-slate-500 font-semibold tracking-wider text-xs uppercase animate-pulse">Sincronizando analítica integrada del ciclo...</p>
+            <p class="text-slate-500 font-semibold tracking-wider text-xs uppercase animate-pulse">Sincronizando base de datos central de la sede...</p>
         </div>
     </div>
 
@@ -74,8 +73,8 @@
             <div class="flex items-center space-x-4">
                 <div class="bg-blue-600 px-4 py-2 rounded-xl text-white font-extrabold text-lg tracking-wider" translate="no">COMAS</div>
                 <div>
-                    <h1 class="text-sm font-bold text-white tracking-tight uppercase">ANÁLISIS DE NOTAS</h1>
-                    <p class="text-[11px] text-cyan-400 font-semibold flex items-center gap-1.5">
+                    <h1 class="text-sm font-bold text-white tracking-tight uppercase">ANÁLISIS DE NOTAS • <span class="text-cyan-400">ALDAIR RIVERA</span></h1>
+                    <p class="text-[11px] text-slate-400 font-semibold flex items-center gap-1.5">
                         <span class="flex h-2 w-2 relative">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -107,7 +106,7 @@
     </div>
 
     <!-- CONTENEDOR PRINCIPAL MULTI-VISTA -->
-    <main class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 flex-1 w-full space-y-8 relative">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8 relative">
         
         <!-- Pestañas SPA -->
         <div class="flex justify-center sm:justify-start border-b border-slate-800/80 pb-0.5">
@@ -119,7 +118,7 @@
                     <span>🧠</span> Analítica Avanzada y Estándares
                 </button>
                 <button onclick="switchView('reports')" id="tab-reports" class="border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200">
-                    <span>📋</span> Registro Completo
+                    <span>📋</span> Reporte Detallado Completo
                 </button>
             </nav>
         </div>
@@ -158,7 +157,7 @@
                 </section>
 
                 <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Evolución con interacción activada -->
+                    <!-- Evolución académica -->
                     <div class="lg:col-span-2 space-y-6">
                         <div class="premium-card rounded-2xl p-8 shadow-xl">
                             <div class="flex items-center justify-between mb-6">
@@ -237,7 +236,7 @@
                     </div>
                 </section>
 
-                <!-- GRÁFICO CON NÚMEROS PUESTOS COMPLETOS -->
+                <!-- GRÁFICO CON BARRAS ROJAS Y VERDES PEGADAS AL COSTADO -->
                 <section class="premium-card rounded-2xl p-8 shadow-xl w-full">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Métrica Comparativa de Asistencias y Faltas por Examen (Números en Vivo)</h3>
@@ -266,36 +265,36 @@
                 </section>
             </div>
 
-            <!-- VISTA 3: REGISTRO DETALLADO -->
-            <div id="view-container-reports" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 space-y-8 w-full">
+            <!-- VISTA 3: REPORTE DETALLADO COMPLETO (OPTIMIZADO SIN BARRA DE DESPLAZAMIENTO) -->
+            <div id="view-container-reports" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 w-full">
                 <section class="premium-card rounded-2xl overflow-hidden shadow-2xl">
-                    <div class="p-7 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div class="p-5 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado Completo</h3>
-                            <p class="text-[11px] text-slate-400 mt-1.5">Información real procesada desde la primera evaluación de la matriz</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Ajuste de pantalla fluido en vivo sin barras de scroll lateral</p>
                         </div>
-                        <div class="flex items-center space-x-3">
-                            <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
-                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all">EXSA</button>
-                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all">EXSI</button>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
+                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all">EXSA</button>
+                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all">EXSI</button>
                         </div>
                     </div>
-                    <div class="w-full overflow-x-auto custom-scroll">
-                        <table class="w-full text-left border-collapse text-xs">
+                    <div class="w-full text-[11px]">
+                        <table class="w-full text-left border-collapse table-auto">
                             <thead>
                                 <tr class="bg-slate-900/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 text-[10px]">
-                                    <th class="py-4.5 px-6">Evaluación</th>
-                                    <th class="py-4.5 px-5 text-center text-emerald-400 bg-emerald-500/5">Asistieron (A)</th>
-                                    <th class="py-4.5 px-5 text-center text-rose-400 bg-rose-500/5">Faltaron (F)</th>
-                                    <th class="py-4.5 px-6 text-right text-cyan-400">Nota</th>
-                                    <th class="py-4.5 px-5 text-center">Variación %</th>
-                                    <th class="py-4.5 px-5 text-center">SICA</th>
-                                    <th class="py-4.5 px-6">Sección C+D</th>
-                                    <th class="py-4.5 px-6">Sección CXM</th>
+                                    <th class="py-3 px-3">Evaluación</th>
+                                    <th class="py-3 px-2 text-center text-emerald-400 bg-emerald-500/5">Asist. (A)</th>
+                                    <th class="py-3 px-2 text-center text-rose-400 bg-rose-500/5">Faltas (F)</th>
+                                    <th class="py-3 px-3 text-right text-cyan-400">Nota</th>
+                                    <th class="py-3 px-2 text-center">Var %</th>
+                                    <th class="py-3 px-2 text-center">SICA</th>
+                                    <th class="py-3 px-3">Sección C+D</th>
+                                    <th class="py-3 px-3">Sección CXM</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-800/40 bg-slate-900/10 font-semibold text-slate-300" id="table-body-notas">
-                                <!-- Dinámico -->
+                                <!-- Generado Dinámicamente sin scrollbar -->
                             </tbody>
                         </table>
                     </div>
@@ -305,8 +304,12 @@
         </div>
     </main>
 
+    <!-- FOOTER MARCA REGISTRADA -->
+    <footer class="border-t border-slate-850 py-4 text-center text-[11px] text-slate-500 font-medium">
+        Analítica de Control Desarrollada por <span class="text-slate-400 font-bold">Aldair Rivera</span> &copy; 2026
+    </footer>
+
     <script>
-        // Inicializar Plugin Globalmente para Chart.js
         Chart.register(ChartDataLabels);
 
         const SPREADSHEET_ID = '1IIUvhEyo5y1t1itBDwKbSDOVgtWXyWupyyfW6XgAg6M'; 
@@ -383,7 +386,6 @@
                 let globalExsaSum = 0, globalExsaCount = 0;
                 let globalExsiSum = 0, globalExsiCount = 0;
 
-                // Procesamiento completo sin pérdidas ni saltos desde la primera fila real
                 dataTable.rows.forEach((row) => {
                     if (!row || !row.c || row.c.length < 3) return;
 
@@ -418,7 +420,6 @@
                     });
                 });
 
-                // PROMEDIOS BIEN GRANDES EN EL WAIT SCREEN EN VIVO
                 let generalExsaAvg = globalExsaCount > 0 ? (globalExsaSum / globalExsaCount) : 0;
                 let generalExsiAvg = globalExsiCount > 0 ? (globalExsiSum / globalExsiCount) : 0;
                 
@@ -440,14 +441,13 @@
 
                 filterByTutor(selectElement.value);
 
-                // Timeout un poco más largo de 2 segundos para apreciar el balance general
                 setTimeout(() => {
                     const overlay = document.getElementById('welcome-overlay');
                     if (overlay) {
                         overlay.classList.add('opacity-0');
                         setTimeout(() => overlay.remove(), 1000);
                     }
-                }, 2000);
+                }, 1800);
                 
                 document.getElementById('error-box').classList.add('hidden');
             } catch (error) {
@@ -526,21 +526,21 @@
 
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-800/40 transition-colors border-b border-slate-850/60";
+                tr.className = "hover:bg-slate-800/40 transition-colors border-b border-slate-850/60 text-[11px]";
 
                 let varColor = "text-slate-400";
                 if (row.variacion.includes('-')) varColor = "text-rose-400";
                 else if (row.variacion !== '-' && row.variacion !== '0.0%' && !row.variacion.includes('#') && row.variacion !== '---') varColor = "text-emerald-400";
 
                 tr.innerHTML = `
-                    <td class="py-4 px-6 font-bold text-white tracking-wide" translate="no">${row.name}</td>
-                    <td class="py-4 px-5 text-center text-emerald-400 bg-emerald-500/5 font-mono">${row.a}</td>
-                    <td class="py-4 px-5 text-center text-rose-400 bg-rose-500/5 font-mono">${row.f}</td>
-                    <td class="py-4 px-6 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
-                    <td class="py-4 px-5 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
-                    <td class="py-4 px-5 text-center text-slate-300 font-mono">${row.sica}</td>
-                    <td class="py-4 px-6 text-slate-400 truncate max-w-[160px] font-medium text-[11px]">${row.cd}</td>
-                    <td class="py-4 px-6 text-slate-400 truncate max-w-[160px] font-medium text-[11px]">${row.cxm}</td>
+                    <td class="py-3 px-3 font-bold text-white tracking-wide" translate="no">${row.name}</td>
+                    <td class="py-3 px-2 text-center text-emerald-400 bg-emerald-500/5 font-mono">${row.a}</td>
+                    <td class="py-3 px-2 text-center text-rose-400 bg-rose-500/5 font-mono">${row.f}</td>
+                    <td class="py-3 px-3 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
+                    <td class="py-3 px-2 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
+                    <td class="py-3 px-2 text-center text-slate-300 font-mono">${row.sica}</td>
+                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cd}</td>
+                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cxm}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -563,7 +563,7 @@
         function buildCharts(data, asistencias, faltas, cdMap, cxmMap) {
             const activeData = data.filter(r => r.note > 0);
 
-            // 1. Gráfico Lineal de Notas
+            // 1. Gráfico de Notas
             const ctxEvolucion = document.getElementById('chartEvolucion').getContext('2d');
             if (chartEvolucionInstance) chartEvolucionInstance.destroy();
             chartEvolucionInstance = new Chart(ctxEvolucion, {
@@ -577,7 +577,7 @@
                         borderWidth: 3,
                         pointBackgroundColor: '#22d3ee',
                         pointHoverRadius: 8,
-                        pointRadius: 5,
+                        pointRadius: 4,
                         fill: true,
                         tension: 0.15
                     }]
@@ -600,7 +600,7 @@
                 }
             });
 
-            // 2. Gráfico de Rosca Asistencia Total
+            // 2. Gráfico de Rosca
             const ctxDoughnut = document.getElementById('chartAsistenciaDoughnut').getContext('2d');
             if (chartAsistenciaInstance) chartAsistenciaInstance.destroy();
             chartAsistenciaInstance = new Chart(ctxDoughnut, {
@@ -627,7 +627,7 @@
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 ml-4 mr-1.5"></span> Faltas (${faltas})
             `;
 
-            // OBLIGATORIO: 3. Gráfico de Barras con los NÚMEROS REALES PUESTOS SIEMPRE (Incluso ceros)
+            // PERFECCIONADO: 3. Gráfico de Barras Agrupadas con barras pegadas al costado
             const ctxBarAsistencia = document.getElementById('chartAsistenciaPorExamen').getContext('2d');
             if (chartBarAsistenciaInstance) chartBarAsistenciaInstance.destroy();
             chartBarAsistenciaInstance = new Chart(ctxBarAsistencia, {
@@ -642,7 +642,10 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    layout: { padding: { top: 25 } }, // Previene recortes en números altos
+                    layout: { padding: { top: 25 } }, 
+                    // Configuración para pegar las barras juntas una al lado de la otra
+                    barPercentage: 0.85,
+                    categoryPercentage: 0.65,
                     plugins: {
                         legend: { labels: { color: '#94a3b8', font: { weight: 'bold' } } },
                         datalabels: {
@@ -652,7 +655,7 @@
                             offset: 2,
                             color: '#cbd5e1',
                             font: { weight: '800', size: 10, family: 'monospace' },
-                            formatter: function(val) { return val; } // Forzar impresión incondicional
+                            formatter: function(val) { return val; } 
                         }
                     },
                     scales: {
