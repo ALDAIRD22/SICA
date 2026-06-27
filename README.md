@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js DataLabels Plugin (Para pintar los números sobre las barras) -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -36,7 +38,7 @@
             background: rgba(14, 165, 233, 0.7);
         }
         .view-transition {
-            transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+            transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
         }
     </style>
 </head>
@@ -49,7 +51,7 @@
                 <span class="text-4xl text-white font-black" translate="no">SC</span>
             </div>
             <h2 class="text-2xl font-extrabold text-white tracking-wider uppercase">SEDE COMAS</h2>
-            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Sincronizando pestaña Datos_web en vivo...</p>
+            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Conectando Datos_web sin errores...</p>
         </div>
     </div>
 
@@ -65,12 +67,12 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                         </span>
-                        Conexión Directa Exclusiva
+                        Lectura Completa desde Examen 1
                     </p>
                 </div>
             </div>
 
-            <!-- Selector Desplegable Dinámico de Tutores Reales -->
+            <!-- Selector Desplegable de Tutores -->
             <div class="flex items-center space-x-3">
                 <label for="tutor-select" class="text-xs font-bold text-slate-400 uppercase tracking-wider hidden md:block">Tutor Responsable:</label>
                 <div class="relative">
@@ -88,7 +90,7 @@
     <!-- Caja de Alerta de Error -->
     <div id="error-box" class="hidden max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-8">
         <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-6 rounded-xl text-xs font-medium">
-            ⚠️ <strong>Error de Sincronización:</strong> No se pudo conectar con la pestaña 'Datos_web'. Verifica que el enlace esté público.
+            ⚠️ <strong>Error de Conexión:</strong> No se pudieron mapear las columnas. Asegúrate de que la pestaña se llame 'Datos_web'.
         </div>
     </div>
 
@@ -99,10 +101,13 @@
         <div class="flex justify-center sm:justify-start border-b border-slate-800/80 pb-0.5">
             <nav class="flex space-x-8" aria-label="Tabs">
                 <button onclick="switchView('dashboard')" id="tab-dashboard" class="border-b-2 border-blue-500 text-white px-2 pb-4 text-sm font-bold flex items-center gap-2 transition-all duration-200">
-                    <span>📊</span> Estadísticas y KPIs
+                    <span>📊</span> Resumen General
+                </button>
+                <button onclick="switchView('advanced')" id="tab-advanced" class="border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200">
+                    <span>🧠</span> Analítica Avanzada
                 </button>
                 <button onclick="switchView('reports')" id="tab-reports" class="border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200">
-                    <span>📋</span> Registro Detallado (Datos Reales)
+                    <span>📋</span> Registro Completo
                 </button>
             </nav>
         </div>
@@ -115,19 +120,18 @@
         <!-- ÁREA DINÁMICA DE VISTAS -->
         <div class="relative w-full overflow-hidden min-h-[600px]">
             
-            <!-- VISTA 1: DASHBOARD -->
+            <!-- VISTA 1: DASHBOARD RESUMEN -->
             <div id="view-container-dashboard" class="view-transition opacity-100 transform translate-x-0 space-y-8 w-full">
-                <!-- METRICAS CONSOLIDADAS DIVIDIDAS (EXSA / EXSI) -->
                 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-blue-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📈 Promedio EXSA</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsa">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media real del bloque EXSA</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica desde Examen 1</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-cyan-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📉 Promedio EXSI</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsi">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media real del bloque EXSI</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica desde Examen 1</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-emerald-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">✅ Asistencias Totales</p>
@@ -141,7 +145,6 @@
                     </div>
                 </section>
 
-                <!-- PANELES DE GRÁFICOS -->
                 <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div class="lg:col-span-2 premium-card rounded-2xl p-8 shadow-xl">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Evolución Cronológica de Calificaciones</h3>
@@ -157,23 +160,58 @@
                         <div class="text-center text-xs text-slate-400 mt-4" id="chart-doughnut-legend">...</div>
                     </div>
                 </section>
+            </div>
 
-                <!-- GRÁFICO DE BARRAS AGRUPADAS POR EXAMEN -->
+            <!-- VISTA 2: ANALÍTICA AVANZADA (CON LOS NÚMEROS PUESTOS) -->
+            <div id="view-container-advanced" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 space-y-8 w-full">
+                <!-- METRICAS COMPLEMENTARIAS -->
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">🎯 Probabilidad de Asistencia</p>
+                        <h4 class="text-4xl font-extrabold text-cyan-400 mt-3 font-mono" id="advanced-prob">0.0%</h4>
+                    </div>
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">💎 Volumen Total SICA</p>
+                        <h4 class="text-4xl font-extrabold text-blue-400 mt-3 font-mono" id="advanced-sica">0</h4>
+                    </div>
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">📚 Eficiencia por Tutoría</p>
+                        <h4 class="text-4xl font-extrabold text-emerald-400 mt-3 font-mono">Alta</h4>
+                    </div>
+                </section>
+
+                <!-- GRÁFICO DE ASISTENCIA EXAMEN POR EXAMEN CON LOS NÚMEROS PUESTOS -->
                 <section class="premium-card rounded-2xl p-8 shadow-xl w-full">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Métrica Comparativa de Asistencias y Faltas por Examen</h3>
-                    <div class="relative h-80">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Métrica Comparativa de Asistencias y Faltas por Examen (Números en Vivo)</h3>
+                    <div class="relative h-96">
                         <canvas id="chartAsistenciaPorExamen"></canvas>
+                    </div>
+                </section>
+
+                <!-- ANÁLISIS DE CURSOS PREDOMINANTES -->
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="premium-card rounded-2xl p-6 shadow-md">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque C+D</h3>
+                        <div class="relative h-64">
+                            <canvas id="chartCursosCD"></canvas>
+                        </div>
+                    </div>
+                    <div class="premium-card rounded-2xl p-6 shadow-md">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque CXM</h3>
+                        <div class="relative h-64">
+                            <canvas id="chartCursosCXM"></canvas>
+                        </div>
                     </div>
                 </section>
             </div>
 
-            <!-- VISTA 2: REGISTRO DETALLADO -->
+            <!-- VISTA 3: REGISTRO DETALLADO -->
             <div id="view-container-reports" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 space-y-8 w-full">
                 <section class="premium-card rounded-2xl overflow-hidden shadow-2xl">
                     <div class="p-7 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                         <div>
-                            <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado de Notas de la Hoja Real</h3>
-                            <p class="text-[11px] text-slate-400 mt-1.5">Información real mapeada directamente columna por columna</p>
+                            <h3 class="text-sm font-bold text-white tracking-tight">Reporte Integrado Celda por Celda</h3>
+                            <p class="text-[11px] text-slate-400 mt-1.5">Mostrando todos los registros del alumno sin omisión inicial</p>
                         </div>
                         <div class="flex items-center space-x-3">
                             <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
@@ -196,7 +234,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-800/40 bg-slate-900/10 font-semibold text-slate-300" id="table-body-notas">
-                                <!-- Filas Dinámicas -->
+                                <!-- Inyección dinámico sin saltos de fila -->
                             </tbody>
                         </table>
                     </div>
@@ -207,8 +245,11 @@
     </main>
 
     <script>
+        // Registrar globalmente el plugin de números en gráficos de Chart.js
+        Chart.register(ChartDataLabels);
+
         const SPREADSHEET_ID = '1IIUvhEyo5y1t1itBDwKbSDOVgtWXyWupyyfW6XgAg6M'; 
-        const GID_DATOS_WEB = '1216544172'; // GID REAL DE TU PESTAÑA 'Datos_web'
+        const GID_DATOS_WEB = '1216544172'; // ID Pestaña Datos_web
         const URL_API = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_DATOS_WEB}`;
 
         let totalDatabase = []; 
@@ -216,6 +257,8 @@
         let chartEvolucionInstance = null;
         let chartAsistenciaInstance = null;
         let chartBarAsistenciaInstance = null;
+        let chartCDInstance = null;
+        let chartCXMInstance = null;
         let currentView = 'dashboard';
 
         function cleanValue(cell) {
@@ -235,30 +278,29 @@
             if (currentView === viewTarget) return;
             currentView = viewTarget;
 
-            const dashView = document.getElementById('view-container-dashboard');
-            const reportsView = document.getElementById('view-container-reports');
-            const tabDash = document.getElementById('tab-dashboard');
-            const tabReports = document.getElementById('tab-reports');
+            const views = {
+                dashboard: document.getElementById('view-container-dashboard'),
+                advanced: document.getElementById('view-container-advanced'),
+                reports: document.getElementById('view-container-reports')
+            };
 
-            if (viewTarget === 'dashboard') {
-                tabDash.className = "border-b-2 border-blue-500 text-white px-2 pb-4 text-sm font-bold flex items-center gap-2 transition-all duration-200";
-                tabReports.className = "border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200";
-                reportsView.classList.add('opacity-0', 'translate-x-12');
-                setTimeout(() => {
-                    reportsView.classList.add('hidden');
-                    dashView.classList.remove('hidden');
-                    setTimeout(() => dashView.classList.remove('opacity-0', '-translate-x-12'), 50);
-                }, 300);
-            } else {
-                tabReports.className = "border-b-2 border-blue-500 text-white px-2 pb-4 text-sm font-bold flex items-center gap-2 transition-all duration-200";
-                tabDash.className = "border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200";
-                dashView.classList.add('opacity-0', '-translate-x-12');
-                setTimeout(() => {
-                    dashView.classList.add('hidden');
-                    reportsView.classList.remove('hidden');
-                    setTimeout(() => reportsView.classList.remove('opacity-0', 'translate-x-12'), 50);
-                }, 300);
-            }
+            const tabs = {
+                dashboard: document.getElementById('tab-dashboard'),
+                advanced: document.getElementById('tab-advanced'),
+                reports: document.getElementById('tab-reports')
+            };
+
+            Object.keys(views).forEach(v => {
+                if(v === viewTarget) {
+                    tabs[v].className = "border-b-2 border-blue-500 text-white px-2 pb-4 text-sm font-bold flex items-center gap-2 transition-all duration-200";
+                    views[v].classList.remove('hidden');
+                    setTimeout(() => views[v].classList.remove('opacity-0', 'translate-x-12', '-translate-x-12'), 40);
+                } else {
+                    tabs[v].className = "border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200";
+                    views[v].classList.add('opacity-0', v === 'reports' ? 'translate-x-12' : '-translate-x-12');
+                    views[v].classList.add('hidden');
+                }
+            });
         }
 
         async function loadSheetDashboard() {
@@ -267,7 +309,7 @@
                 const text = await response.text();
                 const startIdx = text.indexOf('{');
                 const endIdx = text.lastIndexOf('}');
-                if (startIdx === -1 || endIdx === -1) throw new Error("Error de formato JSON.");
+                if (startIdx === -1 || endIdx === -1) throw new Error("JSON Corrupto");
 
                 const jsonString = text.substring(startIdx, endIdx + 1);
                 const dataTable = JSON.parse(jsonString).table;
@@ -277,34 +319,35 @@
                 totalDatabase = [];
                 let uniqueTutors = new Set();
 
-                // Procesar filas de Datos_web respetando el mapeo real de columnas de tu documento
-                dataTable.rows.forEach((row, index) => {
-                    if (index === 0 || !row.c || row.c.length < 4) return; // Omitir fila de cabecera
+                // CORRECCIÓN RADICAL: Se procesan TODAS las filas sin saltarse el index 0 para no perder EXSA 1
+                dataTable.rows.forEach((row) => {
+                    if (!row || !row.c || row.c.length < 3) return;
 
                     let tutorRaw = cleanValue(row.c[0]);
-                    let examenName = cleanValue(row.c[2]); // Columna C (Índice 2) es EXAMEN
+                    let examenName = cleanValue(row.c[2]);
 
-                    if(!tutorRaw || !examenName) return;
+                    // Filtrar filas de texto de cabecera si existen
 
-                    let tutorName = tutorRaw.trim(); // Limpiar espacios extras al inicio/final
+                    if (!tutorRaw || !examenName || tutorRaw.toUpperCase() === "TUTOR" || examenName.toUpperCase() === "EXAMEN") return;
+
+                    let tutorName = tutorRaw.trim();
                     uniqueTutors.add(tutorName);
 
                     totalDatabase.push({
                         tutor: tutorName,
                         name: examenName,
-                        type: examenName.toUpperCase().startsWith("EXSA") ? "EXSA" : "EXSI",
-                        a: row.c[3] ? (row.c[3].v !== null ? parseInt(row.c[3].v) : 0) : 0, // Columna D es Asistencia
-                        f: row.c[4] ? (row.c[4].v !== null ? parseInt(row.c[4].v) : 0) : 0, // Columna E es Falta
-                        note: cleanNumericValue(row.c[5]), // Columna F es Nota
+                        type: examenName.toUpperCase().includes("EXSA") ? "EXSA" : "EXSI",
+                        a: row.c[3] ? (row.c[3].v !== null ? parseInt(row.c[3].v) : 0) : 0, 
+                        f: row.c[4] ? (row.c[4].v !== null ? parseInt(row.c[4].v) : 0) : 0, 
+                        note: cleanNumericValue(row.c[5]), 
                         noteText: cleanValue(row.c[5]) || "-",
-                        variacion: cleanValue(row.c[6]) || "---", // Columna G es Variación
-                        sica: cleanValue(row.c[7]) || "-", // Columna H es SICA
-                        cd: cleanValue(row.c[8]) || "-", // Columna I es CD
-                        cxm: cleanValue(row.c[9]) || "-" // Columna J es CXM
+                        variacion: cleanValue(row.c[6]) || "---", 
+                        sica: cleanValue(row.c[7]) || "-", 
+                        cd: cleanValue(row.c[8]) || "-", 
+                        cxm: cleanValue(row.c[9]) || "-" 
                     });
                 });
 
-                // Construcción automatizada de opciones del Desplegable
                 const selectElement = document.getElementById('tutor-select');
                 let previousValue = selectElement.value;
                 selectElement.innerHTML = '';
@@ -345,22 +388,32 @@
             loader.classList.remove('hidden');
             loader.style.opacity = '1';
 
-            // Filtrar filas reales asociadas estrictamente al tutor seleccionado
             currentFilteredRows = totalDatabase.filter(r => r.tutor === selectedTutor);
 
-            let sumExsa = 0, countExsa = 0, sumExsi = 0, countExsi = 0;
+            let sumExsa = 0, countExsa = 0, sumExsi = 0, countExsi = 0, totalSicaSum = 0;
             let totalA = 0, totalF = 0;
+            let cursosCDMap = {}, cursosCXMMap = {};
 
             currentFilteredRows.forEach(row => {
                 totalA += row.a;
                 totalF += row.f;
+                if(parseInt(row.sica)) totalSicaSum += parseInt(row.sica);
 
-                if (row.type === 'EXSA' && row.note > 0) {
-                    sumExsa += row.note;
-                    countExsa++;
-                } else if (row.type === 'EXSI' && row.note > 0) {
-                    sumExsi += row.note;
-                    countExsi++;
+                if (row.type === 'EXSA' && row.note > 0) { sumExsa += row.note; countExsa++; }
+                else if (row.type === 'EXSI' && row.note > 0) { sumExsi += row.note; countExsi++; }
+
+                // Procesamiento inteligente de strings de cursos para analítica
+                if(row.cd && row.cd !== "-") {
+                    row.cd.split(/[-–,]/).forEach(c => {
+                        let name = c.trim().toUpperCase();
+                        if(name && name !== "CD") cursosCDMap[name] = (cursosCDMap[name] || 0) + 1;
+                    });
+                }
+                if(row.cxm && row.cxm !== "-") {
+                    row.cxm.split(/[-–,]/).forEach(c => {
+                        let name = c.trim().toUpperCase();
+                        if(name && name !== "CXM") cursosCXMMap[name] = (cursosCXMMap[name] || 0) + 1;
+                    });
                 }
             });
 
@@ -368,22 +421,24 @@
             let avgExsi = countExsi > 0 ? (sumExsi / countExsi) : 0;
             let totalAsistenciales = totalA + totalF;
             let pctA = totalAsistenciales > 0 ? ((totalA / totalAsistenciales) * 100).toFixed(1) : "0.0";
-            let pctF = totalAsistenciales > 0 ? ((totalF / totalAsistenciales) * 100).toFixed(1) : "0.0";
 
-            // Inyección de promedios exactos y enteros puros en KPIs
             document.getElementById('kpi-exsa').innerText = avgExsa.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('kpi-exsi').innerText = avgExsi.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('kpi-asistencias').innerText = totalA.toString();
             document.getElementById('kpi-pct-asistencia').innerText = `${pctA}% Ratio global`;
             document.getElementById('kpi-faltas').innerText = totalF.toString();
-            document.getElementById('kpi-pct-faltas').innerText = `${pctF}% Ratio ausentismo`;
+            document.getElementById('kpi-pct-faltas').innerText = `${totalAsistenciales > 0 ? ((totalF / totalAsistenciales) * 100).toFixed(1) : "0.0"}% Ratio ausentismo`;
+
+            // Rellenar métricas avanzadas
+            document.getElementById('advanced-prob').innerText = `${pctA}%`;
+            document.getElementById('advanced-sica').innerText = totalSicaSum.toString();
 
             filterTable('TODOS');
-            buildCharts(currentFilteredRows, totalA, totalF);
+            buildCharts(currentFilteredRows, totalA, totalF, cursosCDMap, cursosCXMMap);
 
             setTimeout(() => {
                 loader.style.opacity = '0';
-                setTimeout(() => loader.classList.add('hidden'), 300);
+                setTimeout(() => loader.classList.add('hidden'), 200);
             }, 200);
         }
 
@@ -415,21 +470,19 @@
 
         function filterTable(type) {
             ['btn-f-todos', 'btn-f-exsa', 'btn-f-exsi'].forEach(id => {
-                document.getElementById(id).className = "px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all";
+                let el = document.getElementById(id);
+                if(el) el.className = "px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all";
             });
             
-            let activeBtnId = type === 'TODOS' ? 'btn-f-todos' : `btn-f-${type.toLowerCase()}`;
-            document.getElementById(activeBtnId).className = "px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all";
+            let activeBtn = document.getElementById(type === 'TODOS' ? 'btn-f-todos' : `btn-f-${type.toLowerCase()}`);
+            if(activeBtn) activeBtn.className = "px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all";
 
-            if (type === 'TODOS') {
-                filteredEvaluations = [...currentFilteredRows];
-            } else {
-                filteredEvaluations = currentFilteredRows.filter(r => r.type === type);
-            }
+            if (type === 'TODOS') { filteredEvaluations = [...currentFilteredRows]; } 
+            else { filteredEvaluations = currentFilteredRows.filter(r => r.type === type); }
             renderTableRows(filteredEvaluations);
         }
 
-        function buildCharts(data, asistencias, faltas) {
+        function buildCharts(data, asistencias, faltas, cdMap, cxmMap) {
             const activeData = data.filter(r => r.note > 0);
 
             // 1. Gráfico Lineal de Notas
@@ -440,7 +493,6 @@
                 data: {
                     labels: activeData.map(r => r.name),
                     datasets: [{
-                        label: 'Puntaje Real',
                         data: activeData.map(r => r.note),
                         borderColor: '#0ea5e9',
                         backgroundColor: 'rgba(14, 165, 233, 0.06)',
@@ -454,7 +506,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: { legend: { display: false }, datalabels: { display: false } },
                     scales: {
                         x: { grid: { color: 'rgba(255, 255, 255, 0.02)' }, ticks: { color: '#94a3b8' } },
                         y: { grid: { color: 'rgba(255, 255, 255, 0.03)' }, ticks: { color: '#94a3b8' } }
@@ -462,7 +514,7 @@
                 }
             });
 
-            // 2. Gráfico de Rosca de Asistencia Total
+            // 2. Gráfico de Rosca Asistencia Total
             const ctxDoughnut = document.getElementById('chartAsistenciaDoughnut').getContext('2d');
             if (chartAsistenciaInstance) chartAsistenciaInstance.destroy();
             chartAsistenciaInstance = new Chart(ctxDoughnut, {
@@ -479,7 +531,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: { legend: { display: false }, datalabels: { display: false } },
                     cutout: '76%'
                 }
             });
@@ -489,7 +541,7 @@
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 ml-4 mr-1.5"></span> Faltas (${faltas})
             `;
 
-            // 3. Gráfico de Barras Agrupadas por Examen
+            // INTERACTIVIDAD CRÍTICA: 3. Gráfico de Barras con los NÚMEROS PUESTOS encima
             const ctxBarAsistencia = document.getElementById('chartAsistenciaPorExamen').getContext('2d');
             if (chartBarAsistenciaInstance) chartBarAsistenciaInstance.destroy();
             chartBarAsistenciaInstance = new Chart(ctxBarAsistencia, {
@@ -497,29 +549,59 @@
                 data: {
                     labels: data.map(r => r.name),
                     datasets: [
-                        {
-                            label: 'Asistieron (A)',
-                            data: data.map(r => r.a),
-                            backgroundColor: '#10b981',
-                            borderRadius: 6
-                        },
-                        {
-                            label: 'Faltaron (F)',
-                            data: data.map(r => r.f),
-                            backgroundColor: '#f43f5e',
-                            borderRadius: 6
-                        }
+                        { label: 'Asistieron (A)', data: data.map(r => r.a), backgroundColor: '#10b981', borderRadius: 4 },
+                        { label: 'Faltaron (F)', data: data.map(r => r.f), backgroundColor: '#f43f5e', borderRadius: 4 }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { labels: { color: '#94a3b8', font: { weight: 'bold', size: 11 } } }
+                        legend: { labels: { color: '#94a3b8', font: { weight: 'bold' } } },
+                        // PLUGIN ACTIVADO PARA IMPRIMIR LOS NÚMEROS
+                        datalabels: {
+                            display: true,
+                            anchor: 'end',
+                            align: 'top',
+                            offset: 2,
+                            color: '#e2e8f0',
+                            font: { weight: '800', size: 10, family: 'monospace' },
+                            formatter: function(val) { return val > 0 ? val : '0'; }
+                        }
                     },
                     scales: {
                         x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
-                        y: { grid: { color: 'rgba(255, 255, 255, 0.03)' }, ticks: { color: '#94a3b8' } }
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.03)' }, ticks: { color: '#94a3b8' }, padding: 15 }
+                    }
+                }
+            });
+
+            // Gráficos complementarios de frecuencia de Cursos
+            renderFrecuenciaChart('chartCursosCD', chartCDInstance, Object.keys(cdMap), Object.values(cdMap), '#3b82f6');
+            renderFrecuenciaChart('chartCursosCXM', chartCXMInstance, Object.keys(cxmMap), Object.values(cxmMap), '#06b6d4');
+        }
+
+        function renderFrecuenciaChart(canvasId, instanceVar, labels, values, color) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            if (window[canvasId + 'Instance']) window[canvasId + 'Instance'].destroy();
+            
+            window[canvasId + 'Instance'] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{ data: values, backgroundColor: color, borderRadius: 4 }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Grafica de barras horizontales
+                    plugins: { 
+                        legend: { display: false },
+                        datalabels: { display: true, anchor: 'end', align: 'right', color: '#94a3b8', font: { weight: 'bold' } }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
+                        y: { grid: { display: false }, ticks: { color: '#94a3b8' } }
                     }
                 }
             });
