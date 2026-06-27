@@ -49,7 +49,7 @@
                 <span class="text-4xl text-white font-black" translate="no">SC</span>
             </div>
             <h2 class="text-2xl font-extrabold text-white tracking-wider uppercase">SEDE COMAS</h2>
-            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Conectando matriz de datos en vivo...</p>
+            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Conectando cuadro de análisis en vivo...</p>
         </div>
     </div>
 
@@ -59,26 +59,26 @@
             <div class="flex items-center space-x-4">
                 <div class="bg-blue-600 px-4 py-2 rounded-xl text-white font-extrabold text-lg tracking-wider" translate="no">COMAS</div>
                 <div>
-                    <h1 class="text-sm font-bold text-white tracking-tight uppercase">ANÁLISIS DE NOTAS</h1>
+                    <h1 class="text-sm font-bold text-white tracking-tight uppercase" id="header-tutor-title">ANÁLISIS DE NOTAS</h1>
                     <p class="text-[11px] text-cyan-400 font-semibold flex items-center gap-1.5">
                         <span class="flex h-2 w-2 relative">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                         </span>
-                        Datos Puros de Matriz Sincronizados
+                        Sincronización de Datos Exacta
                     </p>
                 </div>
             </div>
 
-            <!-- Selector Desplegable de Tutores Oficiales -->
+            <!-- Selector Desplegable de Tutores -->
             <div class="flex items-center space-x-3">
                 <label for="tutor-select" class="text-xs font-bold text-slate-400 uppercase tracking-wider hidden md:block">Tutor Responsable:</label>
                 <div class="relative">
                     <select id="tutor-select" onchange="changeTutorProfile(this.value)" class="bg-slate-850 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl px-4 py-2.5 pr-10 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all appearance-none cursor-pointer shadow-md" translate="no">
+                        <option value="SANCHEZ CINTHYA">SANCHEZ CINTHYA (Hoja Actual)</option>
                         <option value="GARCIA LESLY">GARCIA LESLY</option>
                         <option value="MARTINEZ NATALY">MARTINEZ NATALY</option>
                         <option value="BOZA MARIANA">BOZA MARIANA</option>
-                        <option value="SANCHEZ CINTHYA">SANCHEZ CINTHYA</option>
                         <option value="ALCARRAZ ALEXANDER">ALCARRAZ ALEXANDER</option>
                         <option value="CARRERA VIRGINIA">CARRERA VIRGINIA</option>
                         <option value="ESPADA RODRIGO 1">ESPADA RODRIGO 1</option>
@@ -95,7 +95,7 @@
     <!-- Caja de Alerta de Error -->
     <div id="error-box" class="hidden max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-8">
         <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-6 rounded-xl text-xs font-medium">
-            ⚠️ <strong>Error de Sincronización:</strong> No pudimos mapear los bloques de datos correspondientes en la pestaña 'matriz de datos'.
+            ⚠️ <strong>Error de Sincronización:</strong> No se pudo leer correctamente la hoja de cálculo de Google.
         </div>
     </div>
 
@@ -129,12 +129,12 @@
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-blue-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📈 Promedio EXSA</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsa">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSA</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media del bloque EXSA</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-cyan-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📉 Promedio EXSI</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsi">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSI</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media del bloque EXSI</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-emerald-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">✅ Asistencias Totales</p>
@@ -179,8 +179,8 @@
                 <section class="premium-card rounded-2xl overflow-hidden shadow-2xl">
                     <div class="p-7 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                         <div>
-                            <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado de Notas de la Matriz</h3>
-                            <p class="text-[11px] text-slate-400 mt-1.5">Información real procesada por examen y competencias cruzadas</p>
+                            <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado de Notas del Cuadro de Análisis</h3>
+                            <p class="text-[11px] text-slate-400 mt-1.5">Información real mapeada directamente columna por columna</p>
                         </div>
                         <div class="flex items-center space-x-3">
                             <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
@@ -193,11 +193,11 @@
                             <thead>
                                 <tr class="bg-slate-900/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 text-[10px]">
                                     <th class="py-4.5 px-6">Evaluación</th>
-                                    <th class="py-4.5 px-5 text-center text-emerald-400 bg-emerald-500/5">Asistencias (A)</th>
-                                    <th class="py-4.5 px-5 text-center text-rose-400 bg-rose-500/5">Faltas (F)</th>
+                                    <th class="py-4.5 px-5 text-center text-emerald-400 bg-emerald-500/5">Asistieron (A)</th>
+                                    <th class="py-4.5 px-5 text-center text-rose-400 bg-rose-500/5">Faltaron (F)</th>
                                     <th class="py-4.5 px-6 text-right text-cyan-400">Nota</th>
-                                    <th class="py-4.5 px-5 text-center">Avance %</th>
-                                    <th class="py-4.5 px-5 text-center">SICA / SICI</th>
+                                    <th class="py-4.5 px-5 text-center">Variación %</th>
+                                    <th class="py-4.5 px-5 text-center">SICA</th>
                                     <th class="py-4.5 px-6">Sección C+D</th>
                                     <th class="py-4.5 px-6">Sección CXM</th>
                                 </tr>
@@ -215,10 +215,10 @@
 
     <script>
         const SPREADSHEET_ID = '1IIUvhEyo5y1t1itBDwKbSDOVgtWXyWupyyfW6XgAg6M'; 
-        const GID_MATRIZ = '1386929555'; 
-        const URL_API = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_MATRIZ}`;
+        const GID_ANALISIS = '540529682'; // PESTAÑA ANÁLISIS REVERTIDA COMO ÚNICA FUENTE DE VERDAD
+        const URL_API = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_ANALISIS}`;
 
-        let rawSheetTable = null; 
+        let liveSheetRows = []; 
         let parsedEvaluations = []; 
         let filteredEvaluations = []; 
         let chartEvolucionInstance = null;
@@ -275,12 +275,19 @@
                 const text = await response.text();
                 const startIdx = text.indexOf('{');
                 const endIdx = text.lastIndexOf('}');
-                if (startIdx === -1 || endIdx === -1) throw new Error("Error en formato JSON.");
+                if (startIdx === -1 || endIdx === -1) throw new Error("Error en JSON.");
 
                 const jsonString = text.substring(startIdx, endIdx + 1);
-                rawSheetTable = JSON.parse(jsonString).table;
+                const dataTable = JSON.parse(jsonString).table;
 
-                changeTutorProfile(document.getElementById('tutor-select').value);
+                if (!dataTable || !dataTable.rows) return;
+                liveSheetRows = dataTable.rows;
+
+                // Detectar el tutor activo directamente desde la celda B1 de la hoja análisis
+                let currentLiveTutor = cleanValue(liveSheetRows[0]?.c[1]) || "SANCHEZ CINTHYA";
+                document.getElementById('header-tutor-title').innerText = `ANÁLISIS DE NOTAS - TUTOR: ${currentLiveTutor}`;
+
+                processAnalysisData();
 
                 setTimeout(() => {
                     const overlay = document.getElementById('welcome-overlay');
@@ -298,84 +305,57 @@
             }
         }
 
-        function changeTutorProfile(tutorName) {
-            if (!rawSheetTable || !rawSheetTable.rows) return;
-
+        function changeTutorProfile(value) {
+            // Permite el cambio de tutor estético. Al estar guiado por la pestaña 'Análisis',
+            // mostrará siempre el bloque real y exacto sincronizado de la hoja.
             const loader = document.getElementById('view-loader');
             loader.classList.remove('hidden');
             loader.style.opacity = '1';
+            setTimeout(() => {
+                processAnalysisData();
+                loader.style.opacity = '0';
+                setTimeout(() => loader.classList.add('hidden'), 300);
+            }, 200);
+        }
 
-            let rowNotes = null, rowSica = null, rowAsist = null, rowSec = null;
-            let targetTutorClean = tutorName.trim().toUpperCase();
-
-            // Búsqueda inteligente e inalterable por texto completo
-            rawSheetTable.rows.forEach((row, idx) => {
-                if (!row.c || !row.c[0]) return;
-                let currentTutorInRow = cleanValue(row.c[0]).toUpperCase();
-
-                if (currentTutorInRow.includes(targetTutorClean) || targetTutorClean.includes(currentTutorInRow)) {
-                    if (idx >= 2 && idx <= 9) rowNotes = row.c;       
-                    if (idx >= 12 && idx <= 19) rowSica = row.c;      
-                    if (idx >= 23 && idx <= 30) rowAsist = row.c;     
-                    if (idx >= 33 && idx <= 40) rowSec = row.c;       
-                }
-            });
-
-            if (!rowNotes || !rowAsist) {
-                document.getElementById('error-box').classList.remove('hidden');
-                loader.classList.add('hidden');
-                return;
-            } else {
-                document.getElementById('error-box').classList.add('hidden');
-            }
-
+        function processAnalysisData() {
             parsedEvaluations = [];
             let sumExsa = 0, countExsa = 0, sumExsi = 0, countExsi = 0;
             let totalA = 0, totalF = 0;
 
-            // Procesar bloque EXSA (1 al 9) sin factores de simulación fakes
-            for (let i = 1; i <= 9; i++) {
-                let noteVal = cleanNumericValue(rowNotes[2 + i]); 
-                let noteText = cleanValue(rowNotes[2 + i]) || "-";
-                let avanceText = cleanValue(rowNotes[22 + i]) || "-"; 
-                let sicaVal = rowSica ? (cleanValue(rowSica[2 + i]) || "-") : "-";     
-                
-                let aVal = parseInt(cleanValue(rowAsist[2 * i - 1])) || 0;
-                let fVal = parseInt(cleanValue(rowAsist[2 * i])) || 0;
+            // Procesar estrictamente las filas del cuadro Análisis (Filas de la 3 a la 20)
+            liveSheetRows.forEach((row, index) => {
+                if (index < 2 || !row.c || !row.c[0]) return; // Omitir cabeceras
 
-                let cdVal = rowSec ? (cleanValue(rowSec[2 * i]) || "-") : "-";
-                let cxmVal = rowSec ? (cleanValue(rowSec[2 * i + 1]) || "-") : "-";
+                let examenKey = cleanValue(row.c[0]).toUpperCase();
+                if (!examenKey.startsWith("EXSA") && !examenKey.startsWith("EXSI")) return;
 
-                if (noteVal > 0) { sumExsa += noteVal; countExsa++; }
-                totalA += aVal; totalF += fVal;
+                let aVal = parseInt(cleanValue(row.c[1])) || 0;
+                let fVal = parseInt(cleanValue(row.c[2])) || 0;
+                let noteVal = cleanNumericValue(row.c[3]);
+                let noteText = cleanValue(row.c[3]) || "-";
+                let variacionText = cleanValue(row.c[4]) || "---";
+                let sicaText = cleanValue(row.c[5]) || "-";
+                let cdText = cleanValue(row.c[6]) || "-";
+                let cxmText = cleanValue(row.c[7]) || "-";
 
-                parsedEvaluations.push({
-                    type: 'EXSA', name: `EXSA ${i}`, note: noteVal, noteText: noteText,
-                    avance: avanceText, sica: sicaVal, a: aVal, f: fVal, cd: cdVal, cxm: cxmVal
-                });
-            }
+                totalA += aVal;
+                totalF += fVal;
 
-            // Procesar bloque EXSI (1 al 9) sin factores de simulación fakes
-            for (let i = 1; i <= 9; i++) {
-                let noteVal = cleanNumericValue(rowNotes[12 + i]); 
-                let noteText = cleanValue(rowNotes[12 + i]) || "-";
-                let avanceText = cleanValue(rowNotes[31 + i]) || "-"; 
-                let sicaVal = rowSica ? (cleanValue(rowSica[12 + i]) || "-") : "-";     
-                
-                let aVal = parseInt(cleanValue(rowAsist[17 + 2 * i])) || 0;
-                let fVal = parseInt(cleanValue(rowAsist[18 + 2 * i])) || 0;
-
-                let cdVal = rowSec ? (cleanValue(rowSec[18 + 2 * i]) || "-") : "-";
-                let cxmVal = rowSec ? (cleanValue(rowSec[19 + 2 * i]) || "-") : "-";
-
-                if (noteVal > 0) { sumExsi += noteVal; countExsi++; }
-                totalA += aVal; totalF += fVal;
-
-                parsedEvaluations.push({
-                    type: 'EXSI', name: `EXSI ${i}`, note: noteVal, noteText: noteText,
-                    avance: avanceText, sica: sicaVal, a: aVal, f: fVal, cd: cdVal, cxm: cxmVal
-                });
-            }
+                if (examenKey.startsWith("EXSA")) {
+                    if (noteVal > 0) { sumExsa += noteVal; countExsa++; }
+                    parsedEvaluations.push({
+                        type: 'EXSA', name: cleanValue(row.c[0]), a: aVal, f: fVal, note: noteVal,
+                        noteText: noteText, variacion: variacionText, sica: sicaText, cd: cdText, cxm: cxmText
+                    });
+                } else if (examenKey.startsWith("EXSI")) {
+                    if (noteVal > 0) { sumExsi += noteVal; countExsi++; }
+                    parsedEvaluations.push({
+                        type: 'EXSI', name: cleanValue(row.c[0]), a: aVal, f: fVal, note: noteVal,
+                        noteText: noteText, variacion: variacionText, sica: sicaText, cd: cdText, cxm: cxmText
+                    });
+                }
+            });
 
             let avgExsa = countExsa > 0 ? (sumExsa / countExsa) : 0;
             let avgExsi = countExsi > 0 ? (sumExsi / countExsi) : 0;
@@ -383,10 +363,9 @@
             let pctA = totalAsistenciales > 0 ? ((totalA / totalAsistenciales) * 100).toFixed(1) : "0.0";
             let pctF = totalAsistenciales > 0 ? ((totalF / totalAsistenciales) * 100).toFixed(1) : "0.0";
 
-            document.getElementById('kpi-exsa').innerText = avgExsa.toLocaleString('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-            document.getElementById('kpi-exsi').innerText = avgExsi.toLocaleString('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-            
-            // Forzar las asistencias del KPI a números enteros
+            // Inyección de números enteros puros y promedios reales
+            document.getElementById('kpi-exsa').innerText = avgExsa.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('kpi-exsi').innerText = avgExsi.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('kpi-asistencias').innerText = Math.floor(totalA).toString();
             document.getElementById('kpi-pct-asistencia').innerText = `${pctA}% Ratio global`;
             document.getElementById('kpi-faltas').innerText = Math.floor(totalF).toString();
@@ -394,11 +373,6 @@
 
             filterTable('TODOS');
             buildCharts(parsedEvaluations, totalA, totalF);
-
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.classList.add('hidden'), 300);
-            }, 300);
         }
 
         function renderTableRows(data) {
@@ -410,15 +384,15 @@
                 tr.className = "hover:bg-slate-800/40 transition-colors border-b border-slate-850/60";
 
                 let varColor = "text-slate-400";
-                if (row.avance.includes('-')) varColor = "text-rose-400";
-                else if (row.avance !== '-' && row.avance !== '0.0%' && !row.avance.includes('#')) varColor = "text-emerald-400";
+                if (row.variacion.includes('-')) varColor = "text-rose-400";
+                else if (row.variacion !== '-' && row.variacion !== '0.0%' && !row.variacion.includes('#') && row.variacion !== '---') varColor = "text-emerald-400";
 
                 tr.innerHTML = `
                     <td class="py-4 px-6 font-bold text-white tracking-wide" translate="no">${row.name}</td>
                     <td class="py-4 px-5 text-center text-emerald-400 bg-emerald-500/5 font-mono">${Math.floor(row.a)}</td>
                     <td class="py-4 px-5 text-center text-rose-400 bg-rose-500/5 font-mono">${Math.floor(row.f)}</td>
                     <td class="py-4 px-6 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
-                    <td class="py-4 px-5 text-center font-bold font-mono ${varColor}">${row.avance}</td>
+                    <td class="py-4 px-5 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
                     <td class="py-4 px-5 text-center text-slate-300 font-mono">${row.sica}</td>
                     <td class="py-4 px-6 text-slate-400 truncate max-w-[160px] font-medium text-[11px]">${row.cd}</td>
                     <td class="py-4 px-6 text-slate-400 truncate max-w-[160px] font-medium text-[11px]">${row.cxm}</td>
@@ -545,4 +519,4 @@
         setInterval(loadSheetDashboard, 60000);
     </script>
 </body>
-</html> 
+</html>
