@@ -265,7 +265,7 @@
                 </section>
             </div>
 
-            <!-- VISTA 3: REPORTE DETALLADO COMPLETO (OPTIMIZADO SIN BARRA DE DESPLAZAMIENTO) -->
+            <!-- VISTA 3: REPORTE DETALLADO COMPLETO (ANCHO FLUIDO TOTAL SIN SCROLLBARS HORIZONTALES) -->
             <div id="view-container-reports" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 w-full">
                 <section class="premium-card rounded-2xl overflow-hidden shadow-2xl">
                     <div class="p-5 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -294,7 +294,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-800/40 bg-slate-900/10 font-semibold text-slate-300" id="table-body-notas">
-                                <!-- Generado Dinámicamente sin scrollbar -->
+                                <!-- Generado Dinámicamente con paleta original slate -->
                             </tbody>
                         </table>
                     </div>
@@ -306,7 +306,7 @@
 
     <!-- FOOTER MARCA REGISTRADA -->
     <footer class="border-t border-slate-850 py-4 text-center text-[11px] text-slate-500 font-medium">
-        Analítica de Control Desarrollada por <span class="text-slate-400 font-bold">Aldair Rivera</span> &copy; 2026
+        Analítica de Control Desarrollada por <span class="text-slate-400 font-bold">Aldair RIVERA</span> &copy; 2026
     </footer>
 
     <script>
@@ -533,14 +533,14 @@
                 else if (row.variacion !== '-' && row.variacion !== '0.0%' && !row.variacion.includes('#') && row.variacion !== '---') varColor = "text-emerald-400";
 
                 tr.innerHTML = `
-                    <td class="py-3 px-3 font-bold text-white tracking-wide" translate="no">${row.name}</td>
-                    <td class="py-3 px-2 text-center text-emerald-400 bg-emerald-500/5 font-mono">${row.a}</td>
-                    <td class="py-3 px-2 text-center text-rose-400 bg-rose-500/5 font-mono">${row.f}</td>
-                    <td class="py-3 px-3 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
-                    <td class="py-3 px-2 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
-                    <td class="py-3 px-2 text-center text-slate-300 font-mono">${row.sica}</td>
-                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cd}</td>
-                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cxm}</td>
+                    <td class="py-4 px-6 font-bold text-white tracking-wide" translate="no">${row.name}</td>
+                    <td class="py-4 px-5 text-center text-emerald-400 bg-emerald-500/5 font-mono">${row.a}</td>
+                    <td class="py-4 px-5 text-center text-rose-400 bg-rose-500/5 font-mono">${row.f}</td>
+                    <td class="py-4 px-6 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
+                    <td class="py-4 px-5 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
+                    <td class="py-4 px-5 text-center text-slate-300 font-mono">${row.sica}</td>
+                    <td class="py-4 px-6 text-slate-400 truncate max-w-[150px] font-medium">${row.cd}</td>
+                    <td class="py-4 px-6 text-slate-400 truncate max-w-[150px] font-medium">${row.cxm}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -643,7 +643,6 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     layout: { padding: { top: 25 } }, 
-                    // Configuración para pegar las barras juntas una al lado de la otra
                     barPercentage: 0.85,
                     categoryPercentage: 0.65,
                     plugins: {
@@ -729,4 +728,4 @@
         setInterval(loadSheetDashboard, 60000);
     </script>
 </body>
-</html>
+</html> 
