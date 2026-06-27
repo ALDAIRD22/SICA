@@ -267,33 +267,33 @@
 
             <!-- VISTA 3: REPORTE DETALLADO COMPLETO (OPTIMIZADO SIN BARRA DE DESPLAZAMIENTO) -->
             <div id="view-container-reports" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 w-full">
-                <section class="rounded-2xl overflow-hidden shadow-2xl bg-black border border-slate-800/80">
-                    <div class="p-5 border-b border-slate-850 bg-black flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <section class="rounded-2xl overflow-hidden shadow-2xl bg-blue-950/30 border border-blue-900/40">
+                    <div class="p-5 border-b border-blue-900/40 bg-blue-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado Completo</h3>
                             <p class="text-[11px] text-slate-400 mt-1">Ajuste de pantalla fluido en vivo sin barras de scroll lateral</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
-                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all">EXSA</button>
-                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all">EXSI</button>
+                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-950/60 text-slate-400 hover:bg-blue-900/60 transition-all">EXSA</button>
+                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-950/60 text-slate-400 hover:bg-blue-900/60 transition-all">EXSI</button>
                         </div>
                     </div>
-                    <div class="w-full text-[11px] bg-black">
-                        <table class="w-full text-left border-collapse table-auto bg-black">
+                    <div class="w-full text-[11px] bg-blue-950/20">
+                        <table class="w-full text-left border-collapse table-auto bg-blue-950/20">
                             <thead>
-                                <tr class="bg-black text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 text-[10px]">
-                                    <th class="py-3 px-3 bg-black">Evaluación</th>
-                                    <th class="py-3 px-2 text-center text-emerald-400 bg-emerald-950/30">Asist. (A)</th>
-                                    <th class="py-3 px-2 text-center text-rose-400 bg-rose-950/30">Faltas (F)</th>
-                                    <th class="py-3 px-3 text-right text-cyan-400 bg-black">Nota</th>
-                                    <th class="py-3 px-2 text-center bg-black">Var %</th>
-                                    <th class="py-3 px-2 text-center bg-black">SICA</th>
-                                    <th class="py-3 px-3 bg-black">Sección C+D</th>
-                                    <th class="py-3 px-3 bg-black">Sección CXM</th>
+                                <tr class="bg-blue-950/40 text-slate-300 font-bold uppercase tracking-wider border-b border-blue-900/40 text-[10px]">
+                                    <th class="py-3 px-3 bg-blue-950/40">Evaluación</th>
+                                    <th class="py-3 px-2 text-center text-emerald-400 bg-blue-950/40">Asist. (A)</th>
+                                    <th class="py-3 px-2 text-center text-rose-400 bg-blue-950/40">Faltas (F)</th>
+                                    <th class="py-3 px-3 text-right text-cyan-400 bg-blue-950/40">Nota</th>
+                                    <th class="py-3 px-2 text-center bg-blue-950/40">Var %</th>
+                                    <th class="py-3 px-2 text-center bg-blue-950/40">SICA</th>
+                                    <th class="py-3 px-3 bg-blue-950/40">Sección C+D</th>
+                                    <th class="py-3 px-3 bg-blue-950/40">Sección CXM</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-800/60 bg-black font-semibold text-slate-300" id="table-body-notas">
+                            <tbody class="divide-y divide-blue-900/30 bg-blue-950/20 font-semibold text-slate-300" id="table-body-notas">
                                 <!-- Generado Dinámicamente sin scrollbar -->
                             </tbody>
                         </table>
@@ -526,7 +526,7 @@
 
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-900 transition-colors border-b border-slate-850/60 text-[11px] bg-black";
+                tr.className = "hover:bg-blue-900/40 transition-colors border-b border-blue-900/30 text-[11px] bg-blue-950/20";
 
                 let varColor = "text-slate-400";
                 if (row.variacion.includes('-')) varColor = "text-rose-400";
@@ -534,8 +534,8 @@
 
                 tr.innerHTML = `
                     <td class="py-3 px-3 font-bold text-white tracking-wide" translate="no">${row.name}</td>
-                    <td class="py-3 px-2 text-center text-emerald-400 bg-emerald-950/25 font-mono">${row.a}</td>
-                    <td class="py-3 px-2 text-center text-rose-400 bg-rose-950/25 font-mono">${row.f}</td>
+                    <td class="py-3 px-2 text-center text-emerald-400 font-mono">${row.a}</td>
+                    <td class="py-3 px-2 text-center text-rose-400 font-mono">${row.f}</td>
                     <td class="py-3 px-3 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
                     <td class="py-3 px-2 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
                     <td class="py-3 px-2 text-center text-slate-300 font-mono">${row.sica}</td>
@@ -549,7 +549,7 @@
         function filterTable(type) {
             ['btn-f-todos', 'btn-f-exsa', 'btn-f-exsi'].forEach(id => {
                 let el = document.getElementById(id);
-                if(el) el.className = "px-4 py-2 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all";
+                if(el) el.className = "px-4 py-2 rounded-lg text-xs font-bold bg-blue-950/60 text-slate-400 hover:bg-blue-900/60 transition-all";
             });
             
             let activeBtn = document.getElementById(type === 'TODOS' ? 'btn-f-todos' : `btn-f-${type.toLowerCase()}`);
