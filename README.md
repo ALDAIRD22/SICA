@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">👥 Ratio Presentes</p>
-                                    <p class="text-lg font-black text-emerald-400 font-mono" id="diag-asist">0 alumnos</p>
+                                    <p class="text-lg font-black text-emerald-400 font-mono" id="diag-asist">0 Alumnos</p>
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">🚨 Ausentismo Crítico</p>
@@ -680,7 +680,7 @@
                 document.getElementById('diag-title').innerText = `DIAGNÓSTICO INTERACTIVO: ${examMatch.name}`;
                 document.getElementById('diag-note').innerText = examMatch.noteText;
                 document.getElementById('diag-sica').innerText = examMatch.sica;
-                document.getElementById('diag-asist').innerText = `${examMatch.a} Alumnos`;
+                document.getElementById('diag-asist').innerText = `${examMatch.a} `;
                 document.getElementById('diag-faltas').innerText = `${examMatch.f} Faltas`;
                 document.getElementById('diag-cd').innerText = examMatch.cd;
                 document.getElementById('diag-cxm').innerText = examMatch.cxm;
