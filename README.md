@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chart.js DataLabels Plugin (Para pintar los números sobre las barras) -->
+    <!-- Chart.js DataLabels Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -44,14 +44,14 @@
 </head>
 <body class="text-slate-200 min-h-screen antialiased custom-scroll flex flex-col">
 
-    <!-- SPLASH SCREEN DE BIENVENIDA -->
+    <!-- SPLASH SCREEN MEJORADO: PROMEDIOS EXSA & EXSI -->
     <div id="welcome-overlay" class="fixed inset-0 z-[100] bg-slate-950 flex items-center justify-center transition-opacity duration-700 opacity-100">
         <div class="text-center space-y-6 animate-pulse">
             <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-[0_0_50px_rgba(14,165,233,0.3)] mb-4">
                 <span class="text-4xl text-white font-black" translate="no">SC</span>
             </div>
             <h2 class="text-2xl font-extrabold text-white tracking-wider uppercase">SEDE COMAS</h2>
-            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Conectando Datos_web sin errores...</p>
+            <p class="text-cyan-400 font-medium tracking-widest text-xs uppercase">Procesando Promedios EXSA y EXSI en Vivo...</p>
         </div>
     </div>
 
@@ -67,7 +67,7 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                         </span>
-                        Lectura Completa desde Examen 1
+                        Consolidado Absoluto desde Examen 1
                     </p>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 <label for="tutor-select" class="text-xs font-bold text-slate-400 uppercase tracking-wider hidden md:block">Tutor Responsable:</label>
                 <div class="relative">
                     <select id="tutor-select" onchange="filterByTutor(this.value)" class="bg-slate-850 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl px-4 py-2.5 pr-10 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all appearance-none cursor-pointer shadow-md" translate="no">
-                        <!-- Se auto-rellena dinámicamente -->
+                        <!-- Automatizado -->
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-cyan-400">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -87,17 +87,16 @@
         </div>
     </header>
 
-    <!-- Caja de Alerta de Error -->
     <div id="error-box" class="hidden max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-8">
         <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-6 rounded-xl text-xs font-medium">
-            ⚠️ <strong>Error de Conexión:</strong> No se pudieron mapear las columnas. Asegúrate de que la pestaña se llame 'Datos_web'.
+            ⚠️ <strong>Error de Sincronización:</strong> Verifica que la pestaña del documento se llame estrictamente 'Datos_web'.
         </div>
     </div>
 
     <!-- CONTENEDOR PRINCIPAL MULTI-VISTA -->
     <main class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 flex-1 w-full space-y-8 relative">
         
-        <!-- Pestañas de Navegación SPA -->
+        <!-- Pestañas SPA -->
         <div class="flex justify-center sm:justify-start border-b border-slate-800/80 pb-0.5">
             <nav class="flex space-x-8" aria-label="Tabs">
                 <button onclick="switchView('dashboard')" id="tab-dashboard" class="border-b-2 border-blue-500 text-white px-2 pb-4 text-sm font-bold flex items-center gap-2 transition-all duration-200">
@@ -112,12 +111,12 @@
             </nav>
         </div>
 
-        <!-- Cargador de transición interna -->
+        <!-- Cargador interno -->
         <div id="view-loader" class="hidden absolute inset-0 bg-slate-950/40 backdrop-blur-sm z-40 flex items-center justify-center rounded-2xl transition-opacity duration-300">
             <div class="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
         </div>
 
-        <!-- ÁREA DINÁMICA DE VISTAS -->
+        <!-- ÁREA DINÁMICA -->
         <div class="relative w-full overflow-hidden min-h-[600px]">
             
             <!-- VISTA 1: DASHBOARD RESUMEN -->
@@ -126,12 +125,12 @@
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-blue-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📈 Promedio EXSA</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsa">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica desde Examen 1</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSA</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-cyan-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📉 Promedio EXSI</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsi">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica desde Examen 1</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSI</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-emerald-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">✅ Asistencias Totales</p>
@@ -146,12 +145,58 @@
                 </section>
 
                 <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2 premium-card rounded-2xl p-8 shadow-xl">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Evolución Cronológica de Calificaciones</h3>
-                        <div class="relative h-72">
-                            <canvas id="chartEvolucion"></canvas>
+                    <!-- Evolución con interacción activada -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="premium-card rounded-2xl p-8 shadow-xl">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Evolución Cronológica de Calificaciones</h3>
+                                <span class="text-[10px] bg-blue-500/10 text-blue-400 font-bold px-2 py-1 rounded-md uppercase tracking-tight animate-pulse">👉 Haz clic en un punto para inspeccionar</span>
+                            </div>
+                            <div class="relative h-72">
+                                <canvas id="chartEvolucion"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- PANEL FLUIDO DE DIAGNÓSTICO CLÍNICO POR EXAMEN -->
+                        <div id="interactive-diagnostic-panel" class="premium-card rounded-2xl p-6 shadow-xl hidden transition-all duration-300 transform translate-y-4 opacity-0 border border-blue-500/20 bg-slate-900/80">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_12px_#3b82f6]"></div>
+                                    <h4 class="text-sm font-extrabold text-white uppercase tracking-wider" id="diag-title">EXAMEN SELECCIONADO</h4>
+                                </div>
+                                <span class="text-[10px] font-bold uppercase px-2 py-1 rounded-md" id="diag-badge-std">ESTÁNDAR</span>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                                <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
+                                    <p class="text-slate-400 font-medium mb-1">🎯 Calificación Puntaje</p>
+                                    <p class="text-lg font-black text-cyan-400 font-mono" id="diag-note">0.00</p>
+                                </div>
+                                <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
+                                    <p class="text-slate-400 font-medium mb-1">📈 Desempeño SICA</p>
+                                    <p class="text-lg font-black text-blue-400 font-mono" id="diag-sica">0</p>
+                                </div>
+                                <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
+                                    <p class="text-slate-400 font-medium mb-1">👥 Ratio Presentes</p>
+                                    <p class="text-lg font-black text-emerald-400 font-mono" id="diag-asist">0 alumnos</p>
+                                </div>
+                                <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
+                                    <p class="text-slate-400 font-medium mb-1">🚨 Ausentismo Crítico</p>
+                                    <p class="text-lg font-black text-rose-400 font-mono" id="diag-faltas">0 faltas</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] mt-4 pt-3 border-t border-slate-850">
+                                <div class="flex items-start space-x-2">
+                                    <span class="text-slate-400 font-bold uppercase tracking-wider block mt-0.5">📚 Bloque C+D:</span>
+                                    <span class="text-slate-300 font-semibold bg-slate-950/30 px-2 py-0.5 rounded border border-slate-800" id="diag-cd">-</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <span class="text-slate-400 font-bold uppercase tracking-wider block mt-0.5">🧮 Bloque CXM:</span>
+                                    <span class="text-slate-300 font-semibold bg-slate-950/30 px-2 py-0.5 rounded border border-slate-800" id="diag-cxm">-</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="lg:col-span-1 premium-card rounded-2xl p-8 shadow-xl flex flex-col justify-between">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Proporción de Asistencias Total</h3>
                         <div class="relative h-56 flex items-center justify-center">
@@ -162,25 +207,24 @@
                 </section>
             </div>
 
-            <!-- VISTA 2: ANALÍTICA AVANZADA (CON LOS NÚMEROS PUESTOS) -->
+            <!-- VISTA 2: ANALÍTICA AVANZADA -->
             <div id="view-container-advanced" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 space-y-8 w-full">
-                <!-- METRICAS COMPLEMENTARIAS -->
                 <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="premium-card rounded-2xl p-6 text-center shadow-md">
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-cyan-500">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">🎯 Probabilidad de Asistencia</p>
                         <h4 class="text-4xl font-extrabold text-cyan-400 mt-3 font-mono" id="advanced-prob">0.0%</h4>
                     </div>
-                    <div class="premium-card rounded-2xl p-6 text-center shadow-md">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">💎 Volumen Total SICA</p>
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-blue-500">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">💎 Volumen Acumulado SICA</p>
                         <h4 class="text-4xl font-extrabold text-blue-400 mt-3 font-mono" id="advanced-sica">0</h4>
                     </div>
-                    <div class="premium-card rounded-2xl p-6 text-center shadow-md">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">📚 Eficiencia por Tutoría</p>
-                        <h4 class="text-4xl font-extrabold text-emerald-400 mt-3 font-mono">Alta</h4>
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-purple-500">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">📈 Estándar de Competencias</p>
+                        <h4 class="text-2xl font-black text-purple-400 mt-4 uppercase tracking-tight">SUBIR (Aciertos)</h4>
                     </div>
                 </section>
 
-                <!-- GRÁFICO DE ASISTENCIA EXAMEN POR EXAMEN CON LOS NÚMEROS PUESTOS -->
+                <!-- GRÁFICO CON NÚMEROS PUESTOS EN ENTRADA EN VIVO -->
                 <section class="premium-card rounded-2xl p-8 shadow-xl w-full">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Métrica Comparativa de Asistencias y Faltas por Examen (Números en Vivo)</h3>
                     <div class="relative h-96">
@@ -188,16 +232,15 @@
                     </div>
                 </section>
 
-                <!-- ANÁLISIS DE CURSOS PREDOMINANTES -->
                 <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="premium-card rounded-2xl p-6 shadow-md">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque C+D</h3>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque C+D (Estándar: SUBIR)</h3>
                         <div class="relative h-64">
                             <canvas id="chartCursosCD"></canvas>
                         </div>
                     </div>
                     <div class="premium-card rounded-2xl p-6 shadow-md">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque CXM</h3>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque CXM (Estándar: SUBIR)</h3>
                         <div class="relative h-64">
                             <canvas id="chartCursosCXM"></canvas>
                         </div>
@@ -210,8 +253,8 @@
                 <section class="premium-card rounded-2xl overflow-hidden shadow-2xl">
                     <div class="p-7 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                         <div>
-                            <h3 class="text-sm font-bold text-white tracking-tight">Reporte Integrado Celda por Celda</h3>
-                            <p class="text-[11px] text-slate-400 mt-1.5">Mostrando todos los registros del alumno sin omisión inicial</p>
+                            <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado Completo</h3>
+                            <p class="text-[11px] text-slate-400 mt-1.5">Información real procesada íntegramente desde el primer examen</p>
                         </div>
                         <div class="flex items-center space-x-3">
                             <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
@@ -234,7 +277,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-800/40 bg-slate-900/10 font-semibold text-slate-300" id="table-body-notas">
-                                <!-- Inyección dinámico sin saltos de fila -->
+                                <!-- Dinámico -->
                             </tbody>
                         </table>
                     </div>
@@ -245,11 +288,11 @@
     </main>
 
     <script>
-        // Registrar globalmente el plugin de números en gráficos de Chart.js
+        // Registrar de manera global el plugin de números flotantes
         Chart.register(ChartDataLabels);
 
         const SPREADSHEET_ID = '1IIUvhEyo5y1t1itBDwKbSDOVgtWXyWupyyfW6XgAg6M'; 
-        const GID_DATOS_WEB = '1216544172'; // ID Pestaña Datos_web
+        const GID_DATOS_WEB = '1216544172'; 
         const URL_API = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_DATOS_WEB}`;
 
         let totalDatabase = []; 
@@ -319,14 +362,12 @@
                 totalDatabase = [];
                 let uniqueTutors = new Set();
 
-                // CORRECCIÓN RADICAL: Se procesan TODAS las filas sin saltarse el index 0 para no perder EXSA 1
+                // RESOLUCIÓN AL FILTRO INICIAL: Captura todas las filas sin excepción para no omitir EXSA 1 o EXSI 1
                 dataTable.rows.forEach((row) => {
                     if (!row || !row.c || row.c.length < 3) return;
 
                     let tutorRaw = cleanValue(row.c[0]);
                     let examenName = cleanValue(row.c[2]);
-
-                    // Filtrar filas de texto de cabecera si existen
 
                     if (!tutorRaw || !examenName || tutorRaw.toUpperCase() === "TUTOR" || examenName.toUpperCase() === "EXAMEN") return;
 
@@ -359,9 +400,7 @@
                     selectElement.appendChild(option);
                 });
 
-                if (previousValue && uniqueTutors.has(previousValue)) {
-                    selectElement.value = previousValue;
-                }
+                if (previousValue && uniqueTutors.has(previousValue)) { selectElement.value = previousValue; }
 
                 filterByTutor(selectElement.value);
 
@@ -388,6 +427,9 @@
             loader.classList.remove('hidden');
             loader.style.opacity = '1';
 
+            // Cerrar el panel interactivo al cambiar de tutor para prevenir desajustes
+            document.getElementById('interactive-diagnostic-panel').classList.add('hidden', 'opacity-0');
+
             currentFilteredRows = totalDatabase.filter(r => r.tutor === selectedTutor);
 
             let sumExsa = 0, countExsa = 0, sumExsi = 0, countExsi = 0, totalSicaSum = 0;
@@ -397,12 +439,12 @@
             currentFilteredRows.forEach(row => {
                 totalA += row.a;
                 totalF += row.f;
-                if(parseInt(row.sica)) totalSicaSum += parseInt(row.sica);
+                let sicaParsed = parseInt(row.sica);
+                if(!isNaN(sicaParsed)) totalSicaSum += sicaParsed;
 
                 if (row.type === 'EXSA' && row.note > 0) { sumExsa += row.note; countExsa++; }
                 else if (row.type === 'EXSI' && row.note > 0) { sumExsi += row.note; countExsi++; }
 
-                // Procesamiento inteligente de strings de cursos para analítica
                 if(row.cd && row.cd !== "-") {
                     row.cd.split(/[-–,]/).forEach(c => {
                         let name = c.trim().toUpperCase();
@@ -429,7 +471,6 @@
             document.getElementById('kpi-faltas').innerText = totalF.toString();
             document.getElementById('kpi-pct-faltas').innerText = `${totalAsistenciales > 0 ? ((totalF / totalAsistenciales) * 100).toFixed(1) : "0.0"}% Ratio ausentismo`;
 
-            // Rellenar métricas avanzadas
             document.getElementById('advanced-prob').innerText = `${pctA}%`;
             document.getElementById('advanced-sica').innerText = totalSicaSum.toString();
 
@@ -485,7 +526,7 @@
         function buildCharts(data, asistencias, faltas, cdMap, cxmMap) {
             const activeData = data.filter(r => r.note > 0);
 
-            // 1. Gráfico Lineal de Notas
+            // 1. Gráfico Lineal de Notas + INTERACCIÓN CLICK "CVR" DESPLEGABLE
             const ctxEvolucion = document.getElementById('chartEvolucion').getContext('2d');
             if (chartEvolucionInstance) chartEvolucionInstance.destroy();
             chartEvolucionInstance = new Chart(ctxEvolucion, {
@@ -498,7 +539,8 @@
                         backgroundColor: 'rgba(14, 165, 233, 0.06)',
                         borderWidth: 3,
                         pointBackgroundColor: '#22d3ee',
-                        pointRadius: 4,
+                        pointHoverRadius: 8,
+                        pointRadius: 5,
                         fill: true,
                         tension: 0.15
                     }]
@@ -507,6 +549,14 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false }, datalabels: { display: false } },
+                    // CAPTURA INTERACTIVA DEL CLICK
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const examName = chartEvolucionInstance.data.labels[index];
+                            displayExamDiagnostic(examName);
+                        }
+                    },
                     scales: {
                         x: { grid: { color: 'rgba(255, 255, 255, 0.02)' }, ticks: { color: '#94a3b8' } },
                         y: { grid: { color: 'rgba(255, 255, 255, 0.03)' }, ticks: { color: '#94a3b8' } }
@@ -541,7 +591,7 @@
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 ml-4 mr-1.5"></span> Faltas (${faltas})
             `;
 
-            // INTERACTIVIDAD CRÍTICA: 3. Gráfico de Barras con los NÚMEROS PUESTOS encima
+            // 3. Gráfico de Barras con los NÚMEROS PUESTOS EN VIVO EN CADA BARRA
             const ctxBarAsistencia = document.getElementById('chartAsistenciaPorExamen').getContext('2d');
             if (chartBarAsistenciaInstance) chartBarAsistenciaInstance.destroy();
             chartBarAsistenciaInstance = new Chart(ctxBarAsistencia, {
@@ -558,15 +608,15 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { labels: { color: '#94a3b8', font: { weight: 'bold' } } },
-                        // PLUGIN ACTIVADO PARA IMPRIMIR LOS NÚMEROS
+                        // NUMEROS EN VIVO ACTIVADOS EN LAS BARRAS
                         datalabels: {
                             display: true,
                             anchor: 'end',
                             align: 'top',
                             offset: 2,
-                            color: '#e2e8f0',
+                            color: '#cbd5e1',
                             font: { weight: '800', size: 10, family: 'monospace' },
-                            formatter: function(val) { return val > 0 ? val : '0'; }
+                            formatter: function(val) { return val !== 0 ? val : '0'; }
                         }
                     },
                     scales: {
@@ -576,9 +626,42 @@
                 }
             });
 
-            // Gráficos complementarios de frecuencia de Cursos
             renderFrecuenciaChart('chartCursosCD', chartCDInstance, Object.keys(cdMap), Object.values(cdMap), '#3b82f6');
             renderFrecuenciaChart('chartCursosCXM', chartCXMInstance, Object.keys(cxmMap), Object.values(cxmMap), '#06b6d4');
+        }
+
+        // LÓGICA DESPLEGABLE INTERACTIVA TRAS EL CLICK EN EL EXAMEN
+        function displayExamDiagnostic(examName) {
+            const examMatch = currentFilteredRows.find(r => r.name === examName);
+            if (!examMatch) return;
+
+            const panel = document.getElementById('interactive-diagnostic-panel');
+            
+            // Animación limpia de salida y re-entrada
+            panel.classList.add('opacity-0', 'translate-y-4');
+            
+            setTimeout(() => {
+                panel.classList.remove('hidden');
+                document.getElementById('diag-title').innerText = `DIAGNÓSTICO INTERACTIVO: ${examMatch.name}`;
+                document.getElementById('diag-note').innerText = examMatch.noteText;
+                document.getElementById('diag-sica').innerText = examMatch.sica;
+                document.getElementById('diag-asist').innerText = `${examMatch.a} Alumnos`;
+                document.getElementById('diag-faltas').innerText = `${examMatch.f} Faltas`;
+                document.getElementById('diag-cd').innerText = examMatch.cd;
+                document.getElementById('diag-cxm').innerText = examMatch.cxm;
+
+                // Definición dinámica del Estándar en base a variaciones o notas
+                const badgeStd = document.getElementById('diag-badge-std');
+                if(examMatch.note >= 1100) {
+                    badgeStd.innerText = "ESTÁNDAR: SUBIENDO (Excelente)";
+                    badgeStd.className = "text-[10px] font-bold uppercase px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+                } else {
+                    badgeStd.innerText = "ESTÁNDAR: BAJO CONTROL";
+                    badgeStd.className = "text-[10px] font-bold uppercase px-2 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20";
+                }
+
+                panel.classList.remove('opacity-0', 'translate-y-4');
+            }, 150);
         }
 
         function renderFrecuenciaChart(canvasId, instanceVar, labels, values, color) {
@@ -594,7 +677,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', // Grafica de barras horizontales
+                    indexAxis: 'y', 
                     plugins: { 
                         legend: { display: false },
                         datalabels: { display: true, anchor: 'end', align: 'right', color: '#94a3b8', font: { weight: 'bold' } }
