@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">👥 Ratio Presentes</p>
-                                    <p class="text-lg font-black text-emerald-400 font-mono" id="diag-asist">0 Alumnos</p>
+                                    <p class="text-lg font-black text-emerald-400 font-mono" id="diag-asist">0 alumnos</p>
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">🚨 Ausentismo Crítico</p>
@@ -265,36 +265,36 @@
                 </section>
             </div>
 
-            <!-- VISTA 3: REPORTE DETALLADO COMPLETO (ANCHO FLUIDO TOTAL SIN SCROLLBARS HORIZONTALES) -->
+            <!-- VISTA 3: REPORTE DETALLADO COMPLETO (OPTIMIZADO SIN BARRA DE DESPLAZAMIENTO) -->
             <div id="view-container-reports" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 w-full">
-                <section class="premium-card rounded-2xl overflow-hidden shadow-2xl">
-                    <div class="p-5 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <section class="rounded-2xl overflow-hidden shadow-2xl bg-black border border-slate-800/80">
+                    <div class="p-5 border-b border-slate-850 bg-black flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado Completo</h3>
                             <p class="text-[11px] text-slate-400 mt-1">Ajuste de pantalla fluido en vivo sin barras de scroll lateral</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
-                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all">EXSA</button>
-                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all">EXSI</button>
+                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all">EXSA</button>
+                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all">EXSI</button>
                         </div>
                     </div>
-                    <div class="w-full text-[11px]">
-                        <table class="w-full text-left border-collapse table-auto">
+                    <div class="w-full text-[11px] bg-black">
+                        <table class="w-full text-left border-collapse table-auto bg-black">
                             <thead>
-                                <tr class="bg-slate-900/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 text-[10px]">
-                                    <th class="py-3 px-3">Evaluación</th>
-                                    <th class="py-3 px-2 text-center text-emerald-400 bg-emerald-500/5">Asist. (A)</th>
-                                    <th class="py-3 px-2 text-center text-rose-400 bg-rose-500/5">Faltas (F)</th>
-                                    <th class="py-3 px-3 text-right text-cyan-400">Nota</th>
-                                    <th class="py-3 px-2 text-center">Var %</th>
-                                    <th class="py-3 px-2 text-center">SICA</th>
-                                    <th class="py-3 px-3">Sección C+D</th>
-                                    <th class="py-3 px-3">Sección CXM</th>
+                                <tr class="bg-black text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 text-[10px]">
+                                    <th class="py-3 px-3 bg-black">Evaluación</th>
+                                    <th class="py-3 px-2 text-center text-emerald-400 bg-emerald-950/30">Asist. (A)</th>
+                                    <th class="py-3 px-2 text-center text-rose-400 bg-rose-950/30">Faltas (F)</th>
+                                    <th class="py-3 px-3 text-right text-cyan-400 bg-black">Nota</th>
+                                    <th class="py-3 px-2 text-center bg-black">Var %</th>
+                                    <th class="py-3 px-2 text-center bg-black">SICA</th>
+                                    <th class="py-3 px-3 bg-black">Sección C+D</th>
+                                    <th class="py-3 px-3 bg-black">Sección CXM</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-800/40 bg-slate-900/10 font-semibold text-slate-300" id="table-body-notas">
-                                <!-- Generado Dinámicamente con paleta original slate -->
+                            <tbody class="divide-y divide-slate-800/60 bg-black font-semibold text-slate-300" id="table-body-notas">
+                                <!-- Generado Dinámicamente sin scrollbar -->
                             </tbody>
                         </table>
                     </div>
@@ -306,7 +306,7 @@
 
     <!-- FOOTER MARCA REGISTRADA -->
     <footer class="border-t border-slate-850 py-4 text-center text-[11px] text-slate-500 font-medium">
-        Analítica de Control Desarrollada por <span class="text-slate-400 font-bold">Aldair RIVERA</span> &copy; 2026
+        Analítica de Control Desarrollada por <span class="text-slate-400 font-bold">Aldair Rivera</span> &copy; 2026
     </footer>
 
     <script>
@@ -526,21 +526,21 @@
 
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-800/40 transition-colors border-b border-slate-850/60 text-[11px]";
+                tr.className = "hover:bg-slate-900 transition-colors border-b border-slate-850/60 text-[11px] bg-black";
 
                 let varColor = "text-slate-400";
                 if (row.variacion.includes('-')) varColor = "text-rose-400";
                 else if (row.variacion !== '-' && row.variacion !== '0.0%' && !row.variacion.includes('#') && row.variacion !== '---') varColor = "text-emerald-400";
 
                 tr.innerHTML = `
-                    <td class="py-4 px-6 font-bold text-white tracking-wide" translate="no">${row.name}</td>
-                    <td class="py-4 px-5 text-center text-emerald-400 bg-emerald-500/5 font-mono">${row.a}</td>
-                    <td class="py-4 px-5 text-center text-rose-400 bg-rose-500/5 font-mono">${row.f}</td>
-                    <td class="py-4 px-6 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
-                    <td class="py-4 px-5 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
-                    <td class="py-4 px-5 text-center text-slate-300 font-mono">${row.sica}</td>
-                    <td class="py-4 px-6 text-slate-400 truncate max-w-[150px] font-medium">${row.cd}</td>
-                    <td class="py-4 px-6 text-slate-400 truncate max-w-[150px] font-medium">${row.cxm}</td>
+                    <td class="py-3 px-3 font-bold text-white tracking-wide" translate="no">${row.name}</td>
+                    <td class="py-3 px-2 text-center text-emerald-400 bg-emerald-950/25 font-mono">${row.a}</td>
+                    <td class="py-3 px-2 text-center text-rose-400 bg-rose-950/25 font-mono">${row.f}</td>
+                    <td class="py-3 px-3 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
+                    <td class="py-3 px-2 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
+                    <td class="py-3 px-2 text-center text-slate-300 font-mono">${row.sica}</td>
+                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cd}</td>
+                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cxm}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -549,7 +549,7 @@
         function filterTable(type) {
             ['btn-f-todos', 'btn-f-exsa', 'btn-f-exsi'].forEach(id => {
                 let el = document.getElementById(id);
-                if(el) el.className = "px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all";
+                if(el) el.className = "px-4 py-2 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all";
             });
             
             let activeBtn = document.getElementById(type === 'TODOS' ? 'btn-f-todos' : `btn-f-${type.toLowerCase()}`);
@@ -643,6 +643,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     layout: { padding: { top: 25 } }, 
+                    // Configuración para pegar las barras juntas una al lado de la otra
                     barPercentage: 0.85,
                     categoryPercentage: 0.65,
                     plugins: {
@@ -680,7 +681,7 @@
                 document.getElementById('diag-title').innerText = `DIAGNÓSTICO INTERACTIVO: ${examMatch.name}`;
                 document.getElementById('diag-note').innerText = examMatch.noteText;
                 document.getElementById('diag-sica').innerText = examMatch.sica;
-                document.getElementById('diag-asist').innerText = `${examMatch.a} `;
+                document.getElementById('diag-asist').innerText = `${examMatch.a} Alumnos`;
                 document.getElementById('diag-faltas').innerText = `${examMatch.f} Faltas`;
                 document.getElementById('diag-cd').innerText = examMatch.cd;
                 document.getElementById('diag-cxm').innerText = examMatch.cxm;
@@ -728,4 +729,4 @@
         setInterval(loadSheetDashboard, 60000);
     </script>
 </body>
-</html> 
+</html>
