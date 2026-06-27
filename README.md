@@ -14,7 +14,7 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top right, #111827 0%, #0f172a 60%, #020617 100%);
+            background: radial-gradient(circle at top right, #1e1b4b 0%, #0f172a 60%, #020617 100%);
         }
         .premium-card {
             background: rgba(15, 23, 42, 0.65);
@@ -30,11 +30,11 @@
             border-radius: 8px;
         }
         .custom-scroll::-webkit-scrollbar-thumb {
-            background: rgba(14, 165, 233, 0.4);
+            background: rgba(239, 68, 68, 0.4);
             border-radius: 8px;
         }
         .custom-scroll::-webkit-scrollbar-thumb:hover {
-            background: rgba(14, 165, 233, 0.7);
+            background: rgba(37, 99, 235, 0.7);
         }
         .view-transition {
             transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
@@ -46,19 +46,19 @@
     <!-- SPLASH SCREEN CON FIRMA ALDAIR RIVERA Y PROMEDIOS GENERALES GIGANTES -->
     <div id="welcome-overlay" class="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-1000 opacity-100 p-6">
         <div class="text-center space-y-6 max-w-2xl w-full">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-[0_0_40px_rgba(14,165,233,0.3)]">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-red-600 shadow-[0_0_40px_rgba(37,99,235,0.4)]">
                 <span class="text-3xl text-white font-black" translate="no">AR</span>
             </div>
             <h2 class="text-xl font-bold text-slate-400 tracking-widest uppercase">ALDAIR RIVERA • REPORTES EN VIVO</h2>
             
             <!-- Bloque de visualización masiva de promedios -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8">
-                <div class="bg-slate-900/80 border border-blue-500/20 rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
+                <div class="bg-slate-900/90 border border-blue-500/20 rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
                     <p class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2">PROMEDIO GENERAL EXSA</p>
                     <h3 class="text-5xl font-black text-white font-mono" id="splash-avg-exsa">...</h3>
                 </div>
-                <div class="bg-slate-900/80 border border-cyan-500/20 rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
-                    <p class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">PROMEDIO GENERAL EXSI</p>
+                <div class="bg-slate-900/90 border border-red-500/20 rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
+                    <p class="text-xs font-bold text-red-400 uppercase tracking-wider mb-2">PROMEDIO GENERAL EXSI</p>
                     <h3 class="text-5xl font-black text-white font-mono" id="splash-avg-exsi">...</h3>
                 </div>
             </div>
@@ -71,13 +71,13 @@
     <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-20 flex items-center justify-between shadow-lg">
             <div class="flex items-center space-x-4">
-                <div class="bg-blue-600 px-4 py-2 rounded-xl text-white font-extrabold text-lg tracking-wider" translate="no">COMAS</div>
+                <div class="bg-gradient-to-r from-blue-600 to-red-600 px-4 py-2 rounded-xl text-white font-extrabold text-lg tracking-wider" translate="no">COMAS</div>
                 <div>
-                    <h1 class="text-sm font-bold text-white tracking-tight uppercase">ANÁLISIS DE NOTAS • <span class="text-cyan-400">ALDAIR RIVERA</span></h1>
+                    <h1 class="text-sm font-bold text-white tracking-tight uppercase">ANÁLISIS DE NOTAS • <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-red-400 font-extrabold">ALDAIR RIVERA</span></h1>
                     <p class="text-[11px] text-slate-400 font-semibold flex items-center gap-1.5">
                         <span class="flex h-2 w-2 relative">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                         </span>
                         Consolidado Absoluto desde Examen 1
                     </p>
@@ -91,7 +91,7 @@
                     <select id="tutor-select" onchange="filterByTutor(this.value)" class="bg-slate-850 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl px-4 py-2.5 pr-10 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all appearance-none cursor-pointer shadow-md" translate="no">
                         <!-- Automatizado -->
                     </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-cyan-400">
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-red-500">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsa">0.00</h3>
                         <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSA</p>
                     </div>
-                    <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-cyan-500">
+                    <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-red-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📉 Promedio EXSI</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsi">0.00</h3>
                         <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSI</p>
@@ -162,7 +162,7 @@
                         <div class="premium-card rounded-2xl p-8 shadow-xl">
                             <div class="flex items-center justify-between mb-6">
                                 <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Evolución Cronológica de Calificaciones</h3>
-                                <span class="text-[10px] bg-blue-500/10 text-blue-400 font-bold px-2 py-1 rounded-md uppercase tracking-tight animate-pulse">👉 Haz clic en un punto para inspeccionar</span>
+                                <span class="text-[10px] bg-gradient-to-r from-blue-500/20 to-red-500/20 border border-blue-500/30 text-blue-400 font-bold px-2 py-1 rounded-md uppercase tracking-tight animate-pulse">👉 Haz clic en un punto para inspeccionar</span>
                             </div>
                             <div class="relative h-72">
                                 <canvas id="chartEvolucion"></canvas>
@@ -173,7 +173,7 @@
                         <div id="interactive-diagnostic-panel" class="premium-card rounded-2xl p-6 shadow-xl hidden transition-all duration-300 transform translate-y-4 opacity-0 border border-blue-500/20 bg-slate-900/80">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_12px_#3b82f6]"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_12px_#ef4444]"></div>
                                     <h4 class="text-sm font-extrabold text-white uppercase tracking-wider" id="diag-title">EXAMEN SELECCIONADO</h4>
                                 </div>
                                 <span class="text-[10px] font-bold uppercase px-2 py-1 rounded-md" id="diag-badge-std">ESTÁNDAR</span>
@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">📈 Desempeño SICA</p>
-                                    <p class="text-lg font-black text-blue-400 font-mono" id="diag-sica">0</p>
+                                    <p class="text-lg font-black text-amber-400 font-mono" id="diag-sica">0</p>
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">👥 Ratio Presentes</p>
@@ -222,17 +222,17 @@
             <!-- VISTA 2: ANALÍTICA AVANZADA Y ESTÁNDARES -->
             <div id="view-container-advanced" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 space-y-8 w-full">
                 <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-cyan-500">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">🎯 Probabilidad de Asistencia</p>
-                        <h4 class="text-4xl font-extrabold text-cyan-400 mt-3 font-mono" id="advanced-prob">0.0%</h4>
-                    </div>
                     <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-blue-500">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">💎 Volumen Acumulado SICA</p>
-                        <h4 class="text-4xl font-extrabold text-blue-400 mt-3 font-mono" id="advanced-sica">0</h4>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">🎯 Probabilidad de Asistencia</p>
+                        <h4 class="text-4xl font-extrabold text-blue-400 mt-3 font-mono" id="advanced-prob">0.0%</h4>
                     </div>
-                    <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-purple-500">
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-amber-500">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">💎 Volumen Acumulado SICA</p>
+                        <h4 class="text-4xl font-extrabold text-amber-400 mt-3 font-mono" id="advanced-sica">0</h4>
+                    </div>
+                    <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-red-500">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">📈 Estándar de Competencias</p>
-                        <h4 class="text-2xl font-black text-purple-400 mt-4 uppercase tracking-tight">SUBIR ↑ (Aciertos)</h4>
+                        <h4 class="text-2xl font-black text-red-400 mt-4 uppercase tracking-tight">SUBIR ↑ (Aciertos)</h4>
                     </div>
                 </section>
 
@@ -265,36 +265,36 @@
                 </section>
             </div>
 
-            <!-- VISTA 3: REPORTE DETALLADO COMPLETO (OPTIMIZADO SIN BARRA DE DESPLAZAMIENTO) -->
+            <!-- VISTA 3: REPORTE DETALLADO COMPLETO (ANCHO FLUIDO TOTAL SIN SCROLLBARS HORIZONTALES) -->
             <div id="view-container-reports" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 w-full">
-                <section class="rounded-2xl overflow-hidden shadow-2xl bg-blue-950/30 border border-blue-900/40">
-                    <div class="p-5 border-b border-blue-900/40 bg-blue-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <section class="premium-card rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="p-5 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado Completo</h3>
-                            <p class="text-[11px] text-slate-400 mt-1">Ajuste de pantalla fluido en vivo sin barras de scroll lateral</p>
+                            <p class="text-[11px] text-slate-500 mt-1">Ajuste de pantalla fluido en vivo sin barras de scroll lateral</p>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
-                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-950/60 text-slate-400 hover:bg-blue-900/60 transition-all">EXSA</button>
-                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-950/60 text-slate-400 hover:bg-blue-900/60 transition-all">EXSI</button>
+                            <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
+                            <button onclick="filterTable('EXSA')" id="btn-f-exsa" class="px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all border border-slate-700/50">EXSA</button>
+                            <button onclick="filterTable('EXSI')" id="btn-f-exsi" class="px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all border border-slate-700/50">EXSI</button>
                         </div>
                     </div>
-                    <div class="w-full text-[11px] bg-blue-950/20">
-                        <table class="w-full text-left border-collapse table-auto bg-blue-950/20">
+                    <div class="w-full text-[11px]">
+                        <table class="w-full text-left border-collapse table-auto">
                             <thead>
-                                <tr class="bg-blue-950/40 text-slate-300 font-bold uppercase tracking-wider border-b border-blue-900/40 text-[10px]">
-                                    <th class="py-3 px-3 bg-blue-950/40">Evaluación</th>
-                                    <th class="py-3 px-2 text-center text-emerald-400 bg-blue-950/40">Asist. (A)</th>
-                                    <th class="py-3 px-2 text-center text-rose-400 bg-blue-950/40">Faltas (F)</th>
-                                    <th class="py-3 px-3 text-right text-cyan-400 bg-blue-950/40">Nota</th>
-                                    <th class="py-3 px-2 text-center bg-blue-950/40">Var %</th>
-                                    <th class="py-3 px-2 text-center bg-blue-950/40">SICA</th>
-                                    <th class="py-3 px-3 bg-blue-950/40">Sección C+D</th>
-                                    <th class="py-3 px-3 bg-blue-950/40">Sección CXM</th>
+                                <tr class="bg-slate-900/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 text-[10px]">
+                                    <th class="py-3 px-3">Evaluación</th>
+                                    <th class="py-3 px-2 text-center text-emerald-400 bg-emerald-500/5">Asist. (A)</th>
+                                    <th class="py-3 px-2 text-center text-rose-400 bg-rose-500/5">Faltas (F)</th>
+                                    <th class="py-3 px-3 text-right text-cyan-400">Nota</th>
+                                    <th class="py-3 px-2 text-center">Var %</th>
+                                    <th class="py-3 px-2 text-center text-amber-400">SICA</th>
+                                    <th class="py-3 px-3">Sección C+D</th>
+                                    <th class="py-3 px-3">Sección CXM</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-blue-900/30 bg-blue-950/20 font-semibold text-slate-300" id="table-body-notas">
-                                <!-- Generado Dinámicamente sin scrollbar -->
+                            <tbody class="divide-y divide-slate-800/40 bg-slate-900/10 font-semibold text-slate-300" id="table-body-notas">
+                                <!-- Generado Dinámicamente -->
                             </tbody>
                         </table>
                     </div>
@@ -526,21 +526,21 @@
 
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-blue-900/40 transition-colors border-b border-blue-900/30 text-[11px] bg-blue-950/20";
+                tr.className = "hover:bg-slate-800/40 transition-colors border-b border-slate-850/60 text-[11px]";
 
                 let varColor = "text-slate-400";
                 if (row.variacion.includes('-')) varColor = "text-rose-400";
                 else if (row.variacion !== '-' && row.variacion !== '0.0%' && !row.variacion.includes('#') && row.variacion !== '---') varColor = "text-emerald-400";
 
                 tr.innerHTML = `
-                    <td class="py-3 px-3 font-bold text-white tracking-wide" translate="no">${row.name}</td>
-                    <td class="py-3 px-2 text-center text-emerald-400 font-mono">${row.a}</td>
-                    <td class="py-3 px-2 text-center text-rose-400 font-mono">${row.f}</td>
-                    <td class="py-3 px-3 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
-                    <td class="py-3 px-2 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
-                    <td class="py-3 px-2 text-center text-slate-300 font-mono">${row.sica}</td>
-                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cd}</td>
-                    <td class="py-3 px-3 text-slate-400 truncate max-w-[150px] font-medium">${row.cxm}</td>
+                    <td class="py-4 px-6 font-bold text-white tracking-wide" translate="no">${row.name}</td>
+                    <td class="py-4 px-5 text-center text-emerald-400 bg-emerald-500/5 font-mono">${row.a}</td>
+                    <td class="py-4 px-5 text-center text-rose-400 bg-rose-500/5 font-mono">${row.f}</td>
+                    <td class="py-4 px-6 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
+                    <td class="py-4 px-5 text-center font-bold font-mono ${varColor}">${row.variacion}</td>
+                    <td class="py-4 px-5 text-center text-amber-400 font-mono bg-amber-500/5">${row.sica}</td>
+                    <td class="py-4 px-6 text-slate-400 truncate max-w-[150px] font-medium">${row.cd}</td>
+                    <td class="py-4 px-6 text-slate-400 truncate max-w-[150px] font-medium">${row.cxm}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -549,7 +549,7 @@
         function filterTable(type) {
             ['btn-f-todos', 'btn-f-exsa', 'btn-f-exsi'].forEach(id => {
                 let el = document.getElementById(id);
-                if(el) el.className = "px-4 py-2 rounded-lg text-xs font-bold bg-blue-950/60 text-slate-400 hover:bg-blue-900/60 transition-all";
+                if(el) el.className = "px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all";
             });
             
             let activeBtn = document.getElementById(type === 'TODOS' ? 'btn-f-todos' : `btn-f-${type.toLowerCase()}`);
@@ -643,7 +643,6 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     layout: { padding: { top: 25 } }, 
-                    // Configuración para pegar las barras juntas una al lado de la otra
                     barPercentage: 0.85,
                     categoryPercentage: 0.65,
                     plugins: {
@@ -665,8 +664,8 @@
                 }
             });
 
-            renderFrecuenciaChart('chartCursosCD', chartCDInstance, Object.keys(cdMap), Object.values(cdMap), '#3b82f6');
-            renderFrecuenciaChart('chartCursosCXM', chartCXMInstance, Object.keys(cxmMap), Object.values(cxmMap), '#06b6d4');
+            renderFrecuenciaChart('chartCursosCD', chartCDInstance, Object.keys(cdMap), Object.values(cdMap), '#2563eb');
+            renderFrecuenciaChart('chartCursosCXM', chartCXMInstance, Object.keys(cxmMap), Object.values(cxmMap), '#dc2626');
         }
 
         function displayExamDiagnostic(examName) {
@@ -729,4 +728,4 @@
         setInterval(loadSheetDashboard, 60000);
     </script>
 </body>
-</html>
+</html> 
