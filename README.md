@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">👥 Ratio Presentes</p>
-                                    <p class="text-lg font-black text-emerald-400 font-mono" id="diag-asist">0 alumnos</p>
+                                    <p class="text-lg font-black text-emerald-400 font-mono" id="diag-asist"> Alumnos</p>
                                 </div>
                                 <div class="bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                                     <p class="text-slate-400 font-medium mb-1">🚨 Ausentismo Crítico</p>
