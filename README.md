@@ -49,7 +49,7 @@
                 <span class="text-4xl text-white font-black" translate="no">SC</span>
             </div>
             <h2 class="text-2xl font-extrabold text-white tracking-wider uppercase">SEDE COMAS</h2>
-            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Buscando y ordenando matriz de datos...</p>
+            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Conectando matriz de datos en vivo...</p>
         </div>
     </div>
 
@@ -65,7 +65,7 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                         </span>
-                        Búsqueda Dinámica por Nombre Habilitada
+                        Datos Puros de Matriz Sincronizados
                     </p>
                 </div>
             </div>
@@ -95,7 +95,7 @@
     <!-- Caja de Alerta de Error -->
     <div id="error-box" class="hidden max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-8">
         <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-6 rounded-xl text-xs font-medium">
-            ⚠️ <strong>Error de Sincronización:</strong> No pudimos encontrar los bloques de datos correspondientes en la pestaña 'matriz de datos'.
+            ⚠️ <strong>Error de Sincronización:</strong> No pudimos mapear los bloques de datos correspondientes en la pestaña 'matriz de datos'.
         </div>
     </div>
 
@@ -129,12 +129,12 @@
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-blue-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📈 Promedio EXSA</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsa">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica de la serie EXSA</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSA</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-cyan-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📉 Promedio EXSI</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsi">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica de la serie EXSI</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica real de la serie EXSI</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-emerald-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">✅ Asistencias Totales</p>
@@ -234,7 +234,7 @@
         function cleanNumericValue(cell) {
             if (!cell || cell.v === null || cell.v === undefined) return 0;
             if (typeof cell.v === 'number') return cell.v;
-            let str = cell.v.toString().replace(/\./g, '').replace(',', '.');
+            let str = cell.v.toString().replace(/\s/g, '').replace(/\./g, '').replace(',', '.');
             let val = parseFloat(str);
             return isNaN(val) ? 0 : val;
         }
@@ -298,7 +298,6 @@
             }
         }
 
-        // CONTROLADOR INTELIGENTE: ENCUENTRA LA FILA EXACTA BUSCANDO POR NOMBRE EN CADA BLOQUE
         function changeTutorProfile(tutorName) {
             if (!rawSheetTable || !rawSheetTable.rows) return;
 
@@ -309,20 +308,19 @@
             let rowNotes = null, rowSica = null, rowAsist = null, rowSec = null;
             let targetTutorClean = tutorName.trim().toUpperCase();
 
-            // Escaneo dinámico vertical por bloques para emparejar al tutor real sin errores cruzados
+            // Búsqueda inteligente e inalterable por texto completo
             rawSheetTable.rows.forEach((row, idx) => {
                 if (!row.c || !row.c[0]) return;
                 let currentTutorInRow = cleanValue(row.c[0]).toUpperCase();
 
                 if (currentTutorInRow.includes(targetTutorClean) || targetTutorClean.includes(currentTutorInRow)) {
-                    if (idx >= 2 && idx <= 9) rowNotes = row.c;       // Bloque de Notas reales
-                    if (idx >= 12 && idx <= 19) rowSica = row.c;      // Bloque de SICA/SICI
-                    if (idx >= 23 && idx <= 30) rowAsist = row.c;     // Bloque de Asistencias (A/F)
-                    if (idx >= 33 && idx <= 40) rowSec = row.c;       // Bloque de C+D / CXM
+                    if (idx >= 2 && idx <= 9) rowNotes = row.c;       
+                    if (idx >= 12 && idx <= 19) rowSica = row.c;      
+                    if (idx >= 23 && idx <= 30) rowAsist = row.c;     
+                    if (idx >= 33 && idx <= 40) rowSec = row.c;       
                 }
             });
 
-            // Si falla la búsqueda, mostrar caja de alerta
             if (!rowNotes || !rowAsist) {
                 document.getElementById('error-box').classList.remove('hidden');
                 loader.classList.add('hidden');
@@ -335,10 +333,10 @@
             let sumExsa = 0, countExsa = 0, sumExsi = 0, countExsi = 0;
             let totalA = 0, totalF = 0;
 
-            // Procesar bloque EXSA (1 al 9)
+            // Procesar bloque EXSA (1 al 9) sin factores de simulación fakes
             for (let i = 1; i <= 9; i++) {
                 let noteVal = cleanNumericValue(rowNotes[2 + i]); 
-                let noteText = cleanValue(rowNotes[2 + i]);
+                let noteText = cleanValue(rowNotes[2 + i]) || "-";
                 let avanceText = cleanValue(rowNotes[22 + i]) || "-"; 
                 let sicaVal = rowSica ? (cleanValue(rowSica[2 + i]) || "-") : "-";     
                 
@@ -352,15 +350,15 @@
                 totalA += aVal; totalF += fVal;
 
                 parsedEvaluations.push({
-                    type: 'EXSA', name: `EXSA ${i}`, note: noteVal, noteText: noteText || "-",
+                    type: 'EXSA', name: `EXSA ${i}`, note: noteVal, noteText: noteText,
                     avance: avanceText, sica: sicaVal, a: aVal, f: fVal, cd: cdVal, cxm: cxmVal
                 });
             }
 
-            // Procesar bloque EXSI (1 al 9)
+            // Procesar bloque EXSI (1 al 9) sin factores de simulación fakes
             for (let i = 1; i <= 9; i++) {
                 let noteVal = cleanNumericValue(rowNotes[12 + i]); 
-                let noteText = cleanValue(rowNotes[12 + i]);
+                let noteText = cleanValue(rowNotes[12 + i]) || "-";
                 let avanceText = cleanValue(rowNotes[31 + i]) || "-"; 
                 let sicaVal = rowSica ? (cleanValue(rowSica[12 + i]) || "-") : "-";     
                 
@@ -374,22 +372,25 @@
                 totalA += aVal; totalF += fVal;
 
                 parsedEvaluations.push({
-                    type: 'EXSI', name: `EXSI ${i}`, note: noteVal, noteText: noteText || "-",
+                    type: 'EXSI', name: `EXSI ${i}`, note: noteVal, noteText: noteText,
                     avance: avanceText, sica: sicaVal, a: aVal, f: fVal, cd: cdVal, cxm: cxmVal
                 });
             }
 
             let avgExsa = countExsa > 0 ? (sumExsa / countExsa) : 0;
             let avgExsi = countExsi > 0 ? (sumExsi / countExsi) : 0;
-            let globalAsistanceRatio = (totalA + totalF) > 0 ? ((totalA / (totalA + totalF)) * 100).toFixed(1) : "0.0";
-            let globalAbsenceRatio = (totalA + totalF) > 0 ? ((totalF / (totalA + totalF)) * 100).toFixed(1) : "0.0";
+            let totalAsistenciales = totalA + totalF;
+            let pctA = totalAsistenciales > 0 ? ((totalA / totalAsistenciales) * 100).toFixed(1) : "0.0";
+            let pctF = totalAsistenciales > 0 ? ((totalF / totalAsistenciales) * 100).toFixed(1) : "0.0";
 
-            document.getElementById('kpi-exsa').innerText = avgExsa.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('kpi-exsi').innerText = avgExsi.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('kpi-asistencias').innerText = totalA.toLocaleString('es-PE');
-            document.getElementById('kpi-pct-asistencia').innerText = `${globalAsistanceRatio}% Ratio global`;
-            document.getElementById('kpi-faltas').innerText = totalF.toLocaleString('es-PE');
-            document.getElementById('kpi-pct-faltas').innerText = `${globalAbsenceRatio}% Ratio ausentismo`;
+            document.getElementById('kpi-exsa').innerText = avgExsa.toLocaleString('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+            document.getElementById('kpi-exsi').innerText = avgExsi.toLocaleString('es-PE', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+            
+            // Forzar las asistencias del KPI a números enteros
+            document.getElementById('kpi-asistencias').innerText = Math.floor(totalA).toString();
+            document.getElementById('kpi-pct-asistencia').innerText = `${pctA}% Ratio global`;
+            document.getElementById('kpi-faltas').innerText = Math.floor(totalF).toString();
+            document.getElementById('kpi-pct-faltas').innerText = `${pctF}% Ratio ausentismo`;
 
             filterTable('TODOS');
             buildCharts(parsedEvaluations, totalA, totalF);
@@ -414,8 +415,8 @@
 
                 tr.innerHTML = `
                     <td class="py-4 px-6 font-bold text-white tracking-wide" translate="no">${row.name}</td>
-                    <td class="py-4 px-5 text-center text-emerald-400 bg-emerald-500/5 font-mono">${row.a}</td>
-                    <td class="py-4 px-5 text-center text-rose-400 bg-rose-500/5 font-mono">${row.f}</td>
+                    <td class="py-4 px-5 text-center text-emerald-400 bg-emerald-500/5 font-mono">${Math.floor(row.a)}</td>
+                    <td class="py-4 px-5 text-center text-rose-400 bg-rose-500/5 font-mono">${Math.floor(row.f)}</td>
                     <td class="py-4 px-6 text-right text-cyan-400 font-extrabold font-mono">${row.noteText}</td>
                     <td class="py-4 px-5 text-center font-bold font-mono ${varColor}">${row.avance}</td>
                     <td class="py-4 px-5 text-center text-slate-300 font-mono">${row.sica}</td>
@@ -483,7 +484,7 @@
                 data: {
                     labels: ['Asistencias', 'Faltas'],
                     datasets: [{
-                        data: [asistencias, faltas],
+                        data: [Math.floor(asistencias), Math.floor(faltas)],
                         backgroundColor: ['#10b981', '#f43f5e'],
                         borderColor: '#0f172a',
                         borderWidth: 4
@@ -498,8 +499,8 @@
             });
 
             document.getElementById('chart-doughnut-legend').innerHTML = `
-                <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 mr-1.5"></span> Asistencias (${asistencias})
-                <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 ml-4 mr-1.5"></span> Faltas (${faltas})
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 mr-1.5"></span> Asistencias (${Math.floor(asistencias)})
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 ml-4 mr-1.5"></span> Faltas (${Math.floor(faltas)})
             `;
 
             // 3. Gráfico de Barras Agrupadas: Asistencia por Examen
@@ -512,13 +513,13 @@
                     datasets: [
                         {
                             label: 'Asistieron (A)',
-                            data: data.map(r => r.a),
+                            data: data.map(r => Math.floor(r.a)),
                             backgroundColor: '#10b981',
                             borderRadius: 6
                         },
                         {
                             label: 'Faltaron (F)',
-                            data: data.map(r => r.f),
+                            data: data.map(r => Math.floor(r.f)),
                             backgroundColor: '#f43f5e',
                             borderRadius: 6
                         }
@@ -544,4 +545,4 @@
         setInterval(loadSheetDashboard, 60000);
     </script>
 </body>
-</html>
+</html> 
