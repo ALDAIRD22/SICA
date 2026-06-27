@@ -44,14 +44,27 @@
 </head>
 <body class="text-slate-200 min-h-screen antialiased custom-scroll flex flex-col">
 
-    <!-- SPLASH SCREEN MEJORADO: PROMEDIOS EXSA & EXSI -->
-    <div id="welcome-overlay" class="fixed inset-0 z-[100] bg-slate-950 flex items-center justify-center transition-opacity duration-700 opacity-100">
-        <div class="text-center space-y-6 animate-pulse">
-            <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-[0_0_50px_rgba(14,165,233,0.3)] mb-4">
-                <span class="text-4xl text-white font-black" translate="no">SC</span>
+    <!-- SPLASH SCREEN MEJORADO: EXPOSITOR DE PROMEDIOS GENERALES GIGANTES -->
+    <div id="welcome-overlay" class="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-1000 opacity-100 p-6">
+        <div class="text-center space-y-6 max-w-2xl w-full">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-[0_0_40px_rgba(14,165,233,0.3)]">
+                <span class="text-3xl text-white font-black" translate="no">SC</span>
             </div>
-            <h2 class="text-2xl font-extrabold text-white tracking-wider uppercase">SEDE COMAS</h2>
-            <p class="text-cyan-400 font-medium tracking-widest text-xs uppercase">Procesando Promedios EXSA y EXSI en Vivo...</p>
+            <h2 class="text-xl font-bold text-slate-400 tracking-widest uppercase">SEDE COMAS • REPORTE EN VIVO</h2>
+            
+            <!-- Bloque de visualización masiva de promedios -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8">
+                <div class="bg-slate-900/80 border border-blue-500/20 rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
+                    <p class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2">PROMEDIO GENERAL EXSA</p>
+                    <h3 class="text-5xl font-black text-white font-mono" id="splash-avg-exsa">...</h3>
+                </div>
+                <div class="bg-slate-900/80 border border-cyan-500/20 rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
+                    <p class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">PROMEDIO GENERAL EXSI</p>
+                    <h3 class="text-5xl font-black text-white font-mono" id="splash-avg-exsi">...</h3>
+                </div>
+            </div>
+            
+            <p class="text-slate-500 font-semibold tracking-wider text-xs uppercase animate-pulse">Sincronizando analítica integrada del ciclo...</p>
         </div>
     </div>
 
@@ -103,7 +116,7 @@
                     <span>📊</span> Resumen General
                 </button>
                 <button onclick="switchView('advanced')" id="tab-advanced" class="border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200">
-                    <span>🧠</span> Analítica Avanzada
+                    <span>🧠</span> Analítica Avanzada y Estándares
                 </button>
                 <button onclick="switchView('reports')" id="tab-reports" class="border-b-2 border-transparent text-slate-400 hover:text-slate-200 px-2 pb-4 text-sm font-semibold flex items-center gap-2 transition-all duration-200">
                     <span>📋</span> Registro Completo
@@ -157,7 +170,7 @@
                             </div>
                         </div>
 
-                        <!-- PANEL FLUIDO DE DIAGNÓSTICO CLÍNICO POR EXAMEN -->
+                        <!-- PANEL DE DIAGNÓSTICO DETALLADO POR EXAMEN -->
                         <div id="interactive-diagnostic-panel" class="premium-card rounded-2xl p-6 shadow-xl hidden transition-all duration-300 transform translate-y-4 opacity-0 border border-blue-500/20 bg-slate-900/80">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
                                 <div class="flex items-center space-x-3">
@@ -207,7 +220,7 @@
                 </section>
             </div>
 
-            <!-- VISTA 2: ANALÍTICA AVANZADA -->
+            <!-- VISTA 2: ANALÍTICA AVANZADA Y ESTÁNDARES -->
             <div id="view-container-advanced" class="view-transition opacity-0 transform translate-x-12 hidden absolute inset-x-0 top-0 space-y-8 w-full">
                 <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-cyan-500">
@@ -220,13 +233,18 @@
                     </div>
                     <div class="premium-card rounded-2xl p-6 text-center shadow-md border-t-2 border-purple-500">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">📈 Estándar de Competencias</p>
-                        <h4 class="text-2xl font-black text-purple-400 mt-4 uppercase tracking-tight">SUBIR (Aciertos)</h4>
+                        <h4 class="text-2xl font-black text-purple-400 mt-4 uppercase tracking-tight">SUBIR ↑ (Aciertos)</h4>
                     </div>
                 </section>
 
-                <!-- GRÁFICO CON NÚMEROS PUESTOS EN ENTRADA EN VIVO -->
+                <!-- GRÁFICO CON NÚMEROS PUESTOS COMPLETOS -->
                 <section class="premium-card rounded-2xl p-8 shadow-xl w-full">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Métrica Comparativa de Asistencias y Faltas por Examen (Números en Vivo)</h3>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Métrica Comparativa de Asistencias y Faltas por Examen (Números en Vivo)</h3>
+                        <div class="text-[10px] font-bold text-slate-400 bg-slate-900 px-3 py-1 rounded-md border border-slate-800">
+                            ESTÁNDAR GENERAL ASISTENCIA: <span class="text-emerald-400">SUBIR ↑</span> | FALTAS: <span class="text-rose-400">BAJAR ↓</span>
+                        </div>
+                    </div>
                     <div class="relative h-96">
                         <canvas id="chartAsistenciaPorExamen"></canvas>
                     </div>
@@ -234,13 +252,13 @@
 
                 <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="premium-card rounded-2xl p-6 shadow-md">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque C+D (Estándar: SUBIR)</h3>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque C+D (Estándar de Dominio: SUBIR ↑)</h3>
                         <div class="relative h-64">
                             <canvas id="chartCursosCD"></canvas>
                         </div>
                     </div>
                     <div class="premium-card rounded-2xl p-6 shadow-md">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque CXM (Estándar: SUBIR)</h3>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Frecuencia de Cursos en Bloque CXM (Estándar de Dominio: SUBIR ↑)</h3>
                         <div class="relative h-64">
                             <canvas id="chartCursosCXM"></canvas>
                         </div>
@@ -254,7 +272,7 @@
                     <div class="p-7 border-b border-slate-850 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                         <div>
                             <h3 class="text-sm font-bold text-white tracking-tight">Reporte Detallado Completo</h3>
-                            <p class="text-[11px] text-slate-400 mt-1.5">Información real procesada íntegramente desde el primer examen</p>
+                            <p class="text-[11px] text-slate-400 mt-1.5">Información real procesada desde la primera evaluación de la matriz</p>
                         </div>
                         <div class="flex items-center space-x-3">
                             <button onclick="filterTable('TODOS')" id="btn-f-todos" class="px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white transition-all">Todos</button>
@@ -288,7 +306,7 @@
     </main>
 
     <script>
-        // Registrar de manera global el plugin de números flotantes
+        // Inicializar Plugin Globalmente para Chart.js
         Chart.register(ChartDataLabels);
 
         const SPREADSHEET_ID = '1IIUvhEyo5y1t1itBDwKbSDOVgtWXyWupyyfW6XgAg6M'; 
@@ -361,8 +379,11 @@
 
                 totalDatabase = [];
                 let uniqueTutors = new Set();
+                
+                let globalExsaSum = 0, globalExsaCount = 0;
+                let globalExsiSum = 0, globalExsiCount = 0;
 
-                // RESOLUCIÓN AL FILTRO INICIAL: Captura todas las filas sin excepción para no omitir EXSA 1 o EXSI 1
+                // Procesamiento completo sin pérdidas ni saltos desde la primera fila real
                 dataTable.rows.forEach((row) => {
                     if (!row || !row.c || row.c.length < 3) return;
 
@@ -373,14 +394,22 @@
 
                     let tutorName = tutorRaw.trim();
                     uniqueTutors.add(tutorName);
+                    
+                    let noteVal = cleanNumericValue(row.c[5]);
+                    let isExsa = examenName.toUpperCase().includes("EXSA");
+                    
+                    if(noteVal > 0) {
+                        if(isExsa) { globalExsaSum += noteVal; globalExsaCount++; }
+                        else { globalExsiSum += noteVal; globalExsiCount++; }
+                    }
 
                     totalDatabase.push({
                         tutor: tutorName,
                         name: examenName,
-                        type: examenName.toUpperCase().includes("EXSA") ? "EXSA" : "EXSI",
+                        type: isExsa ? "EXSA" : "EXSI",
                         a: row.c[3] ? (row.c[3].v !== null ? parseInt(row.c[3].v) : 0) : 0, 
                         f: row.c[4] ? (row.c[4].v !== null ? parseInt(row.c[4].v) : 0) : 0, 
-                        note: cleanNumericValue(row.c[5]), 
+                        note: noteVal, 
                         noteText: cleanValue(row.c[5]) || "-",
                         variacion: cleanValue(row.c[6]) || "---", 
                         sica: cleanValue(row.c[7]) || "-", 
@@ -388,6 +417,13 @@
                         cxm: cleanValue(row.c[9]) || "-" 
                     });
                 });
+
+                // PROMEDIOS BIEN GRANDES EN EL WAIT SCREEN EN VIVO
+                let generalExsaAvg = globalExsaCount > 0 ? (globalExsaSum / globalExsaCount) : 0;
+                let generalExsiAvg = globalExsiCount > 0 ? (globalExsiSum / globalExsiCount) : 0;
+                
+                document.getElementById('splash-avg-exsa').innerText = generalExsaAvg.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById('splash-avg-exsi').innerText = generalExsiAvg.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                 const selectElement = document.getElementById('tutor-select');
                 let previousValue = selectElement.value;
@@ -404,13 +440,15 @@
 
                 filterByTutor(selectElement.value);
 
+                // Timeout un poco más largo de 2 segundos para apreciar el balance general
                 setTimeout(() => {
                     const overlay = document.getElementById('welcome-overlay');
                     if (overlay) {
                         overlay.classList.add('opacity-0');
-                        setTimeout(() => overlay.remove(), 700);
+                        setTimeout(() => overlay.remove(), 1000);
                     }
-                }, 400);
+                }, 2000);
+                
                 document.getElementById('error-box').classList.add('hidden');
             } catch (error) {
                 console.error(error);
@@ -427,7 +465,6 @@
             loader.classList.remove('hidden');
             loader.style.opacity = '1';
 
-            // Cerrar el panel interactivo al cambiar de tutor para prevenir desajustes
             document.getElementById('interactive-diagnostic-panel').classList.add('hidden', 'opacity-0');
 
             currentFilteredRows = totalDatabase.filter(r => r.tutor === selectedTutor);
@@ -526,7 +563,7 @@
         function buildCharts(data, asistencias, faltas, cdMap, cxmMap) {
             const activeData = data.filter(r => r.note > 0);
 
-            // 1. Gráfico Lineal de Notas + INTERACCIÓN CLICK "CVR" DESPLEGABLE
+            // 1. Gráfico Lineal de Notas
             const ctxEvolucion = document.getElementById('chartEvolucion').getContext('2d');
             if (chartEvolucionInstance) chartEvolucionInstance.destroy();
             chartEvolucionInstance = new Chart(ctxEvolucion, {
@@ -549,7 +586,6 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false }, datalabels: { display: false } },
-                    // CAPTURA INTERACTIVA DEL CLICK
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
                             const index = elements[0].index;
@@ -591,7 +627,7 @@
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 ml-4 mr-1.5"></span> Faltas (${faltas})
             `;
 
-            // 3. Gráfico de Barras con los NÚMEROS PUESTOS EN VIVO EN CADA BARRA
+            // OBLIGATORIO: 3. Gráfico de Barras con los NÚMEROS REALES PUESTOS SIEMPRE (Incluso ceros)
             const ctxBarAsistencia = document.getElementById('chartAsistenciaPorExamen').getContext('2d');
             if (chartBarAsistenciaInstance) chartBarAsistenciaInstance.destroy();
             chartBarAsistenciaInstance = new Chart(ctxBarAsistencia, {
@@ -606,9 +642,9 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    layout: { padding: { top: 25 } }, // Previene recortes en números altos
                     plugins: {
                         legend: { labels: { color: '#94a3b8', font: { weight: 'bold' } } },
-                        // NUMEROS EN VIVO ACTIVADOS EN LAS BARRAS
                         datalabels: {
                             display: true,
                             anchor: 'end',
@@ -616,12 +652,12 @@
                             offset: 2,
                             color: '#cbd5e1',
                             font: { weight: '800', size: 10, family: 'monospace' },
-                            formatter: function(val) { return val !== 0 ? val : '0'; }
+                            formatter: function(val) { return val; } // Forzar impresión incondicional
                         }
                     },
                     scales: {
                         x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
-                        y: { grid: { color: 'rgba(255, 255, 255, 0.03)' }, ticks: { color: '#94a3b8' }, padding: 15 }
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.03)' }, ticks: { color: '#94a3b8' } }
                     }
                 }
             });
@@ -630,14 +666,11 @@
             renderFrecuenciaChart('chartCursosCXM', chartCXMInstance, Object.keys(cxmMap), Object.values(cxmMap), '#06b6d4');
         }
 
-        // LÓGICA DESPLEGABLE INTERACTIVA TRAS EL CLICK EN EL EXAMEN
         function displayExamDiagnostic(examName) {
             const examMatch = currentFilteredRows.find(r => r.name === examName);
             if (!examMatch) return;
 
             const panel = document.getElementById('interactive-diagnostic-panel');
-            
-            // Animación limpia de salida y re-entrada
             panel.classList.add('opacity-0', 'translate-y-4');
             
             setTimeout(() => {
@@ -650,10 +683,9 @@
                 document.getElementById('diag-cd').innerText = examMatch.cd;
                 document.getElementById('diag-cxm').innerText = examMatch.cxm;
 
-                // Definición dinámica del Estándar en base a variaciones o notas
                 const badgeStd = document.getElementById('diag-badge-std');
                 if(examMatch.note >= 1100) {
-                    badgeStd.innerText = "ESTÁNDAR: SUBIENDO (Excelente)";
+                    badgeStd.innerText = "ESTÁNDAR: SUBIENDO ↑ (Excelente)";
                     badgeStd.className = "text-[10px] font-bold uppercase px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                 } else {
                     badgeStd.innerText = "ESTÁNDAR: BAJO CONTROL";
