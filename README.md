@@ -47,7 +47,7 @@
     <div id="welcome-overlay" class="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-1000 opacity-100 p-6">
         <div class="text-center space-y-6 max-w-2xl w-full">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-[0_0_40px_rgba(14,165,233,0.3)]">
-                <span class="text-3xl text-white font-black" translate="no">AR3</span>
+                <span class="text-3xl text-white font-black" translate="no">AR</span>
             </div>
             <h2 class="text-xl font-bold text-slate-400 tracking-widest uppercase">ALDAIR RIVERA • REPORTES EN VIVO</h2>
             
