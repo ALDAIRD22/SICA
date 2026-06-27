@@ -49,7 +49,7 @@
                 <span class="text-4xl text-white font-black" translate="no">SC</span>
             </div>
             <h2 class="text-2xl font-extrabold text-white tracking-wider uppercase">SEDE COMAS</h2>
-            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Conectando matriz de datos en vivo...</p>
+            <p class="text-slate-400 font-medium tracking-widest text-xs uppercase">Buscando y ordenando matriz de datos...</p>
         </div>
     </div>
 
@@ -65,12 +65,12 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                         </span>
-                        Sincronizado con Base de Datos Real
+                        Búsqueda Dinámica por Nombre Habilitada
                     </p>
                 </div>
             </div>
 
-            <!-- Selector Desplegable de Tutores Reales -->
+            <!-- Selector Desplegable de Tutores Oficiales -->
             <div class="flex items-center space-x-3">
                 <label for="tutor-select" class="text-xs font-bold text-slate-400 uppercase tracking-wider hidden md:block">Tutor Responsable:</label>
                 <div class="relative">
@@ -95,7 +95,7 @@
     <!-- Caja de Alerta de Error -->
     <div id="error-box" class="hidden max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-8">
         <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-6 rounded-xl text-xs font-medium">
-            ⚠️ <strong>Error de Carga:</strong> No se pudo procesar la matriz de datos de la hoja de cálculo. Asegúrate de tener activada la opción de compartir enlace como lector público.
+            ⚠️ <strong>Error de Sincronización:</strong> No pudimos encontrar los bloques de datos correspondientes en la pestaña 'matriz de datos'.
         </div>
     </div>
 
@@ -129,12 +129,12 @@
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-blue-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📈 Promedio EXSA</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsa">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica del bloque EXSA</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica de la serie EXSA</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-cyan-500">
-                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider"> 📉 Promedio EXSI</p>
+                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">📉 Promedio EXSI</p>
                         <h3 class="text-3xl font-black text-white mt-4 font-mono" id="kpi-exsi">0.00</h3>
-                        <p class="text-[11px] text-slate-500 mt-2">Media académica del bloque EXSI</p>
+                        <p class="text-[11px] text-slate-500 mt-2">Media académica de la serie EXSI</p>
                     </div>
                     <div class="premium-card rounded-2xl p-7 flex flex-col justify-between shadow-lg border-l-4 border-l-emerald-500">
                         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">✅ Asistencias Totales</p>
@@ -165,7 +165,7 @@
                     </div>
                 </section>
 
-                <!-- NUEVO GRÁFICO: ASISTENCIA DETALLADA POR EXAMEN -->
+                <!-- GRÁFICO BARRAS: ASISTENCIA POR EXAMEN -->
                 <section class="premium-card rounded-2xl p-8 shadow-xl w-full">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Métrica Comparativa de Asistencias y Faltas por Examen</h3>
                     <div class="relative h-80">
@@ -275,7 +275,7 @@
                 const text = await response.text();
                 const startIdx = text.indexOf('{');
                 const endIdx = text.lastIndexOf('}');
-                if (startIdx === -1 || endIdx === -1) throw new Error("Estructura inválida");
+                if (startIdx === -1 || endIdx === -1) throw new Error("Error en formato JSON.");
 
                 const jsonString = text.substring(startIdx, endIdx + 1);
                 rawSheetTable = JSON.parse(jsonString).table;
@@ -298,37 +298,38 @@
             }
         }
 
+        // CONTROLADOR INTELIGENTE: ENCUENTRA LA FILA EXACTA BUSCANDO POR NOMBRE EN CADA BLOQUE
         function changeTutorProfile(tutorName) {
-            if (!rawSheetTable) return;
+            if (!rawSheetTable || !rawSheetTable.rows) return;
 
             const loader = document.getElementById('view-loader');
             loader.classList.remove('hidden');
             loader.style.opacity = '1';
 
-            // LISTA CON CORRECCIÓN DE ORDEN DE FILAS DE ACUERDO A LA MATRIZ DE GOOGLE SHEETS
-            const tutorsOrderedList = [
-                "GARCIA LESLY",       // Fila Matriz Notas 0
-                "BOZA MARIANA",       // Fila Matriz Notas 1
-                "MARTINEZ NATALY",    // Fila Matriz Notas 2
-                "SANCHEZ CINTHYA",    // Fila Matriz Notas 3
-                "ALCARRAZ ALEXANDER", // Fila Matriz Notas 4
-                "CARRERA VIRGINIA",   // Fila Matriz Notas 5
-                "ESPADA RODRIGO 1",   // Fila Matriz Notas 6
-                "ESPADA RODRIGO 2"    // Fila Matriz Notas 7
-            ];
+            let rowNotes = null, rowSica = null, rowAsist = null, rowSec = null;
+            let targetTutorClean = tutorName.trim().toUpperCase();
 
-            let relativeIndex = tutorsOrderedList.indexOf(tutorName);
-            if (relativeIndex === -1) relativeIndex = 0;
+            // Escaneo dinámico vertical por bloques para emparejar al tutor real sin errores cruzados
+            rawSheetTable.rows.forEach((row, idx) => {
+                if (!row.c || !row.c[0]) return;
+                let currentTutorInRow = cleanValue(row.c[0]).toUpperCase();
 
-            const rowIdx_Notas = 2 + relativeIndex;   
-            const rowIdx_Sica  = 12 + relativeIndex;  
-            const rowIdx_Asist = 23 + relativeIndex;  
-            const rowIdx_Sec   = 33 + relativeIndex;  
+                if (currentTutorInRow.includes(targetTutorClean) || targetTutorClean.includes(currentTutorInRow)) {
+                    if (idx >= 2 && idx <= 9) rowNotes = row.c;       // Bloque de Notas reales
+                    if (idx >= 12 && idx <= 19) rowSica = row.c;      // Bloque de SICA/SICI
+                    if (idx >= 23 && idx <= 30) rowAsist = row.c;     // Bloque de Asistencias (A/F)
+                    if (idx >= 33 && idx <= 40) rowSec = row.c;       // Bloque de C+D / CXM
+                }
+            });
 
-            const rowNotes = rawSheetTable.rows[rowIdx_Notas]?.c || [];
-            const rowSica  = rawSheetTable.rows[rowIdx_Sica]?.c || [];
-            const rowAsist = rawSheetTable.rows[rowIdx_Asist]?.c || [];
-            const rowSec   = rawSheetTable.rows[rowIdx_Sec]?.c || [];
+            // Si falla la búsqueda, mostrar caja de alerta
+            if (!rowNotes || !rowAsist) {
+                document.getElementById('error-box').classList.remove('hidden');
+                loader.classList.add('hidden');
+                return;
+            } else {
+                document.getElementById('error-box').classList.add('hidden');
+            }
 
             parsedEvaluations = [];
             let sumExsa = 0, countExsa = 0, sumExsi = 0, countExsi = 0;
@@ -339,13 +340,13 @@
                 let noteVal = cleanNumericValue(rowNotes[2 + i]); 
                 let noteText = cleanValue(rowNotes[2 + i]);
                 let avanceText = cleanValue(rowNotes[22 + i]) || "-"; 
-                let sicaVal = cleanValue(rowSica[2 + i]) || "-";     
+                let sicaVal = rowSica ? (cleanValue(rowSica[2 + i]) || "-") : "-";     
                 
                 let aVal = parseInt(cleanValue(rowAsist[2 * i - 1])) || 0;
                 let fVal = parseInt(cleanValue(rowAsist[2 * i])) || 0;
 
-                let cdVal = cleanValue(rowSec[2 * i]) || "-";
-                let cxmVal = cleanValue(rowSec[2 * i + 1]) || "-";
+                let cdVal = rowSec ? (cleanValue(rowSec[2 * i]) || "-") : "-";
+                let cxmVal = rowSec ? (cleanValue(rowSec[2 * i + 1]) || "-") : "-";
 
                 if (noteVal > 0) { sumExsa += noteVal; countExsa++; }
                 totalA += aVal; totalF += fVal;
@@ -361,13 +362,13 @@
                 let noteVal = cleanNumericValue(rowNotes[12 + i]); 
                 let noteText = cleanValue(rowNotes[12 + i]);
                 let avanceText = cleanValue(rowNotes[31 + i]) || "-"; 
-                let sicaVal = cleanValue(rowSica[12 + i]) || "-";     
+                let sicaVal = rowSica ? (cleanValue(rowSica[12 + i]) || "-") : "-";     
                 
                 let aVal = parseInt(cleanValue(rowAsist[17 + 2 * i])) || 0;
                 let fVal = parseInt(cleanValue(rowAsist[18 + 2 * i])) || 0;
 
-                let cdVal = cleanValue(rowSec[18 + 2 * i]) || "-";
-                let cxmVal = cleanValue(rowSec[19 + 2 * i]) || "-";
+                let cdVal = rowSec ? (cleanValue(rowSec[18 + 2 * i]) || "-") : "-";
+                let cxmVal = rowSec ? (cleanValue(rowSec[19 + 2 * i]) || "-") : "-";
 
                 if (noteVal > 0) { sumExsi += noteVal; countExsi++; }
                 totalA += aVal; totalF += fVal;
@@ -461,7 +462,7 @@
                         pointRadius: 4,
                         fill: true,
                         tension: 0.15
-                }]
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -501,7 +502,7 @@
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 ml-4 mr-1.5"></span> Faltas (${faltas})
             `;
 
-            // NUEVO 3. Gráfico de Barras Agrupadas: Asistencia por Examen
+            // 3. Gráfico de Barras Agrupadas: Asistencia por Examen
             const ctxBarAsistencia = document.getElementById('chartAsistenciaPorExamen').getContext('2d');
             if (chartBarAsistenciaInstance) chartBarAsistenciaInstance.destroy();
             chartBarAsistenciaInstance = new Chart(ctxBarAsistencia, {
